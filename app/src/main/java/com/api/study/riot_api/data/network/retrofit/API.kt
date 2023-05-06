@@ -11,10 +11,10 @@ import retrofit2.http.Query
 
 interface API {
     @GET("lol/summoner/v4/summoners/by-name/{username}")
-    fun get_user_information_name(
+    suspend fun get_user_information_name(
         @Path(value = "username") name: String,
         @Query(value = "api_key") api_key: String
-    ): Call<User_Information_response>
+    ): User_Information_response
 
     @GET("lol/summoner/v4/summoners/by-account/{accountid}")
     fun get_user_information_accountid(
@@ -29,7 +29,7 @@ interface API {
         @Query(value = "api_key") api_key: String
     ): Call<User_Information_response>
     @GET("/lol/match/v5/matches/by-puuid/{PUUID}/ids")
-    fun get_user_matchesId(
+    suspend fun get_user_matchesId(
         @Path(value = "PUUID") puuid: String,
         @Query(value = "api_key") api_key: String,
         @Query(value = "start") start: Int,
@@ -38,7 +38,7 @@ interface API {
 //        @Query(value = "endTime") endTime: Long,
 //        @Query(value = "queue") queue: Int,
 //        @Query(value = "type") type: String,
-    ): Call<User_matchesId_response>
+    ): User_matchesId_response
 
     @GET("/lol/match/v5/matches/{matchId}")
     fun get_user_matches(

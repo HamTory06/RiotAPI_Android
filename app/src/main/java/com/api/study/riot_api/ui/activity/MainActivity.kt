@@ -32,6 +32,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+        viewModel.userInformationData.observe(this, Observer {
+            Log.d("상태",it.toString())
+        })
     }
 
     override fun onPause() {
