@@ -32,15 +32,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        viewModel.userInformationData.observe(this, Observer {
-            binding.accountId.text = it.accountId
-            binding.id.text = it.id
-            binding.name.text = it.name
-            binding.profileIconId.text = it.profileIconId.toString()
-            binding.puuid.text = it.puuid
-            binding.revisionDate.text = it.revisionDate.toString()
-            binding.summonerLevel.text = it.summonerLevel.toString()
-        })
     }
 
     override fun onPause() {
