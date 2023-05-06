@@ -4,14 +4,28 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.api.study.riot_api.data.network.retrofit.Communication
+import com.api.study.riot_api.data.network.retrofit.API
+import com.api.study.riot_api.data.network.retrofit.ClientRetrofit
 import com.api.study.riot_api.data.network.retrofit.response.User_Information_response
 import com.api.study.riot_api.data.network.retrofit.response.User_matchesId_response
 import com.api.study.riot_api.data.network.retrofit.response.user_matches_response.User_matches_response
-import com.api.study.riot_api.data.repository.RiotApiData
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import retrofit2.create
 
-class Main_ViewModel() : ViewModel() {
-    private val repository = Communication()
+class Main_ViewModel : ViewModel() {
+
+    companion object {
+        const val api_key = "RGAPI-f9035c09-8617-4247-92e1-023c40f5b83b"
+    }
+
+
+    var krRetrofitInstance: API = ClientRetrofit.krGetInstance().create(API::class.java)
+    var AsiarRetrofitInstance: API = ClientRetrofit.AsiarGetInstance().create(API::class.java)
+
+
+    private val viewModelScope = CoroutineScope(Dispatchers.Main)
 
     private val _userInformationData = MutableLiveData<User_Information_response>()
     val userInformationData: LiveData<User_Information_response>
@@ -30,34 +44,27 @@ class Main_ViewModel() : ViewModel() {
         get() = _userName
 
 
-    private val riotApiData = object : RiotApiData {
-        override fun onRiotAPI_GetUser_Information(data: User_Information_response) {
-            _userInformationData.value = data
-            Log.d("onRiotAPI_GetUser_Information", _userInformationData.value.toString())
-        }
-
-        override fun onRiotAPI_GetUser_MatchesId(data: User_matchesId_response) {
-            TODO("MatchesId가져옴")
-            Log.d("onRiotAPI_GetUser_MatchesId",data.toString())
-            _userMatchesId.value = data
-        }
-
-        override fun onRiotAPI_GetUser_Matchse(data: User_matches_response) {
-            TODO("MatchesId사용해서 Matches가져옴")
-            Log.d("onRiotAPI_GetUser_Matchse",data.toString())
-            _userMatches.value = data
-        }
-    }
-
-    fun setInputUserName(text: String) {
-        _userName.value = text
-
+    fun setInputUserName(text: String) = viewModelScope.launch {
+        _userName.postValue(text)
         if (!_userName.value.isNullOrEmpty()) {
-            repository.GetUserInformation(text, riotApiData)
-        }
-        if(_userInformationData.value.toString().isNullOrEmpty()){
-            Log.d("_userInformationData.value.toString().isNullOrEmpty()","nonnull")
-            repository.GetUserMatchesId(userInformationData.value?.puuid.toString(),riotApiData)
+            _userInformationData.postValue(
+                krRetrofitInstance.get_user_information_name(
+                    text,
+                    api_key
+                )
+            )
+
+            if(userInformationData.value != null){
+                val puuid = userInformationData.value!!.puuid
+                _userMatchesId.postValue(
+                    AsiarRetrofitInstance.get_user_matchesId(
+                        puuid,
+                        api_key, 0, 100
+                    )
+                )
+                Log.d("상태",userMatchId.value.toString())
+            }
         }
     }
+
 }
