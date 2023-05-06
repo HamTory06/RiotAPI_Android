@@ -1,19 +1,14 @@
 package com.api.study.riot_api.data.network.retrofit
 
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.api.study.riot_api.data.network.retrofit.response.User_Information_response
+import com.api.study.riot_api.data.network.retrofit.response.User_matchesId_response
+import com.api.study.riot_api.data.network.retrofit.response.user_matches_response.User_matches_response
 import com.api.study.riot_api.data.repository.RiotApiData
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
 import okhttp3.Interceptor
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import kotlin.coroutines.CoroutineContext
 
 class Communication {
 
@@ -37,6 +32,48 @@ class Communication {
                 }
 
                 override fun onFailure(call: Call<User_Information_response>, t: Throwable) {
+                    Log.d("onFailure", "${t.message}")
+                }
+            })
+    }
+
+    fun GetUserMatchesId(puuid: String, riotAPIData: RiotApiData) {
+        ClientRetrofit.api.get_user_matchesId(puuid, api_key, 0,100)
+            .enqueue(object : Callback<User_matchesId_response> {
+                override fun onResponse(
+                    call: Call<User_matchesId_response>, response: Response<User_matchesId_response>
+                ) {
+                    Log.d("puuid",puuid)
+                    if (response.isSuccessful) {
+                        val data = response.body()!!
+                        riotAPIData.onRiotAPI_GetUser_MatchesId(data)
+                    } else {
+                        Log.d("onResponse", "response.code : ${response.code()}")
+                    }
+                }
+
+                override fun onFailure(call: Call<User_matchesId_response>, t: Throwable) {
+                    Log.d("onFailure", "${t.message}")
+                }
+
+            })
+    }
+
+    fun GetUserMatches(matchId: String, riotAPIData: RiotApiData) {
+        ClientRetrofit.api.get_user_matches(matchId, api_key)
+            .enqueue(object : Callback<User_matches_response> {
+                override fun onResponse(
+                    call: Call<User_matches_response>, response: Response<User_matches_response>
+                ) {
+                    if (response.isSuccessful) {
+                        val data = response.body()!!
+                        riotAPIData.onRiotAPI_GetUser_Matchse(data)
+                    } else {
+                        Log.d("onResponse", "response.code : ${response.code()}")
+                    }
+                }
+
+                override fun onFailure(call: Call<User_matches_response>, t: Throwable) {
                     Log.d("onFailure", "${t.message}")
                 }
             })
