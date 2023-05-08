@@ -17,17 +17,17 @@ interface API {
     ): User_Information_response
 
     @GET("lol/summoner/v4/summoners/by-account/{accountid}")
-    fun get_user_information_accountid(
+    suspend fun get_user_information_accountid(
         @Path(value = "accountid") accountid: String,
         @Query(value = "api_key") api_key: String
 
-    ): Call<User_Information_response>
+    ): User_Information_response
 
     @GET("lol/summoner/v4/summoners/by-puuid/{PUUID}")
-    fun get_user_information_puuid(
+    suspend fun get_user_information_puuid(
         @Path(value = "PUUID") puuid: String,
         @Query(value = "api_key") api_key: String
-    ): Call<User_Information_response>
+    ): User_Information_response
     @GET("/lol/match/v5/matches/by-puuid/{PUUID}/ids")
     suspend fun get_user_matchesId(
         @Path(value = "PUUID") puuid: String,
@@ -41,8 +41,8 @@ interface API {
     ): User_matchesId_response
 
     @GET("/lol/match/v5/matches/{matchId}")
-    fun get_user_matches(
+    suspend fun get_user_matches(
         @Path(value = "matchId") matchId: String,
-        @Query(value = "apt_key") apt_key: String
-    ): Call<User_matches_response>
+        @Query(value = "api_key") apt_key: String
+    ): User_matches_response
 }
