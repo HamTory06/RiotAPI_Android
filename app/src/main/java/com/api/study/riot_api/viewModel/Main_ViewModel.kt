@@ -10,7 +10,9 @@ import com.api.study.riot_api.data.network.retrofit.response.User_Information_re
 import com.api.study.riot_api.data.network.retrofit.response.User_matchesId_response
 import com.api.study.riot_api.data.network.retrofit.response.user_matches_response.User_matches_response
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import retrofit2.create
 
@@ -35,8 +37,8 @@ class Main_ViewModel : ViewModel() {
     val userMatchId: LiveData<User_matchesId_response>
         get() = _userMatchesId
 
-    private val _userMatches = MutableLiveData<User_matches_response>()
-    val userMatches: LiveData<User_matches_response>
+    private val _userMatches = MutableLiveData<List<User_matches_response>>()
+    val userMatches: LiveData<List<User_matches_response>>
         get() = _userMatches
 
     private val _userName = MutableLiveData<String>()
@@ -46,25 +48,39 @@ class Main_ViewModel : ViewModel() {
 
     fun setInputUserName(text: String) = viewModelScope.launch {
         _userName.postValue(text)
-        if (!_userName.value.isNullOrEmpty()) {
-            _userInformationData.postValue(
-                krRetrofitInstance.get_user_information_name(
-                    text,
-                    api_key
-                )
-            )
+        val userMatchesList = mutableListOf<User_matches_response>()
 
-            if(userInformationData.value != null){
-                val puuid = userInformationData.value!!.puuid
-                _userMatchesId.postValue(
-                    AsiarRetrofitInstance.get_user_matchesId(
-                        puuid,
-                        api_key, 0, 100
+        CoroutineScope(Dispatchers.IO).async {
+            if (!_userName.value.isNullOrEmpty()) {
+                val UserData = async {
+                    krRetrofitInstance.get_user_information_name(
+                        text, api_key
                     )
-                )
-                Log.d("상태",userMatchId.value.toString())
+                }
+                _userInformationData.postValue(UserData.await())
+                Log.d("상태", UserData.await().toString())
+
+                val puuid = UserData.await().puuid
+                val UserMatchesId = async {
+                    AsiarRetrofitInstance.get_user_matchesId(
+                        puuid, api_key, 0, 10
+                    )
+                }
+
+                _userMatchesId.postValue(UserMatchesId.await())
+                Log.d("상태", UserMatchesId.await().toString())
+                for (i in UserMatchesId.await()) {
+                    Log.d("상태",i)
+                    val UserMatches = async {
+                        AsiarRetrofitInstance.get_user_matches(
+                            i, api_key
+                        )
+                    }
+                    Log.d("상태",UserMatches.await().toString())
+                    userMatchesList.add(UserMatches.await())
+                }
+                _userMatches.value = userMatchesList
             }
         }
     }
-
 }
