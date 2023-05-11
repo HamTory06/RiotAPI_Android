@@ -10,17 +10,21 @@ import com.api.study.riot_api.data.network.retrofit.response.User_Information_re
 import com.api.study.riot_api.data.network.retrofit.response.User_matchesId_response
 import com.api.study.riot_api.data.network.retrofit.response.user_matches_response.User_matches_response
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
-import retrofit2.create
+import kotlinx.coroutines.withContext
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.lang.Exception
 
 class Main_ViewModel : ViewModel() {
 
     companion object {
         const val api_key = "RGAPI-f9035c09-8617-4247-92e1-023c40f5b83b"
     }
+
 
 
     var krRetrofitInstance: API = ClientRetrofit.krGetInstance().create(API::class.java)
@@ -46,10 +50,9 @@ class Main_ViewModel : ViewModel() {
         get() = _userName
 
 
-    fun setInputUserName(text: String) = viewModelScope.launch {
+    fun setInputUserName(text: String) = viewModelScope.launch{
         _userName.postValue(text)
         val userMatchesList = mutableListOf<User_matches_response>()
-
         CoroutineScope(Dispatchers.IO).async {
             if (!_userName.value.isNullOrEmpty()) {
                 val UserData = async {
@@ -57,29 +60,29 @@ class Main_ViewModel : ViewModel() {
                         text, api_key
                     )
                 }
-                _userInformationData.postValue(UserData.await())
-                Log.d("상태", UserData.await().toString())
+                Log.d("user_information", UserData.await().toString())
 
                 val puuid = UserData.await().puuid
-                val UserMatchesId = async {
+                val userMatchesId = async {
                     AsiarRetrofitInstance.get_user_matchesId(
                         puuid, api_key, 0, 10
                     )
                 }
-
-                _userMatchesId.postValue(UserMatchesId.await())
-                Log.d("상태", UserMatchesId.await().toString())
-                for (i in UserMatchesId.await()) {
-                    Log.d("상태",i)
-                    val UserMatches = async {
-                        AsiarRetrofitInstance.get_user_matches(
-                            i, api_key
-                        )
+                userMatchesList.clear()
+                Log.d("UserMatchesId", userMatchesId.await().toString())
+                for (userMatchesId in userMatchesId.await()) {
+                    Log.d("for문",userMatchesId)
+                    try {
+                        val userMatches = async {
+                            AsiarRetrofitInstance.get_user_matches(
+                                userMatchesId, api_key
+                            )
+                        }
+                        Log.d("상태", userMatches.await().toString())
+                    } catch (e: Exception){
+                        Log.d("ERROR",e.message.toString())
                     }
-                    Log.d("상태",UserMatches.await().toString())
-                    userMatchesList.add(UserMatches.await())
                 }
-                _userMatches.value = userMatchesList
             }
         }
     }
