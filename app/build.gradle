@@ -36,18 +36,21 @@ android {
 }
 
 dependencies {
-
     //retrofit 2
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     // 응답 결과가 JSON일 때 객체로 변환해줌
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     //코루틴
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
+    //glide(URL로 사진 가져오기)
+    implementation 'com.github.bumptech.glide:glide:4.13.2'
+
+
 
 
     implementation 'androidx.core:core-ktx:1.8.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'com.google.android.material:material:1.5.0'
+    implementation 'com.google.android.material:material:1.9.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
