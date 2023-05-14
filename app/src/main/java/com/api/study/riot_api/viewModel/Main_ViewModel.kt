@@ -26,7 +26,6 @@ class Main_ViewModel : ViewModel() {
     }
 
 
-
     var krRetrofitInstance: API = ClientRetrofit.krGetInstance().create(API::class.java)
     var AsiarRetrofitInstance: API = ClientRetrofit.AsiarGetInstance().create(API::class.java)
 
@@ -49,8 +48,13 @@ class Main_ViewModel : ViewModel() {
     val userName: LiveData<String>
         get() = _userName
 
+    private val _recyclerView = MutableLiveData<ArrayList<User_matches_response>>()
+    val recycler: LiveData<ArrayList<User_matches_response>>
+        get() = _recyclerView
 
-    fun setInputUserName(text: String) = viewModelScope.launch{
+
+    fun setInputUserName(text: String) = viewModelScope.launch {
+        val data = ArrayList<User_matches_response>()
         _userName.postValue(text)
         val userMatchesList = mutableListOf<User_matches_response>()
         CoroutineScope(Dispatchers.IO).async {
@@ -71,19 +75,21 @@ class Main_ViewModel : ViewModel() {
                 userMatchesList.clear()
                 Log.d("UserMatchesId", userMatchesId.await().toString())
                 for (userMatchesId in userMatchesId.await()) {
-                    Log.d("for문",userMatchesId)
+                    Log.d("for문", userMatchesId)
                     try {
                         val userMatches = async {
                             AsiarRetrofitInstance.get_user_matches(
                                 userMatchesId, api_key
                             )
                         }
+                        data.add(userMatches.await())
                         Log.d("상태", userMatches.await().toString())
-                    } catch (e: Exception){
-                        Log.d("ERROR",e.message.toString())
+                    } catch (e: Exception) {
+                        Log.d("ERROR", e.message.toString())
                     }
                 }
             }
+            _recyclerView.postValue(data)
         }
     }
 }
