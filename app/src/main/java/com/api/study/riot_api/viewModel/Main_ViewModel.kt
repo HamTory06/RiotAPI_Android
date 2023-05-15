@@ -82,6 +82,7 @@ class Main_ViewModel : ViewModel() {
                                 userMatchesId, api_key
                             )
                         }
+                        Log.d("챔피언프로필",userMatches.await().info.participants[0].championId.toString())
                         data.add(userMatches.await())
                         Log.d("상태", userMatches.await().toString())
                     } catch (e: Exception) {
