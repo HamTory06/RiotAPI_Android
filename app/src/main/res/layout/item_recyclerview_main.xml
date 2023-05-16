@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
         <variable
@@ -7,10 +8,11 @@
             type="com.api.study.riot_api.ui.adapter.Main_RecyclerAdapter" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/item"
         android:layout_width="match_parent"
         android:layout_height="100dp"
+        android:layout_margin="10dp"
         android:orientation="vertical">
 
         <de.hdodenhof.circleimageview.CircleImageView
@@ -35,5 +37,6 @@
             android:background="@drawable/champion_level_background"
             app:layout_constraintBottom_toBottomOf="@+id/Champion_Profile_icon"
             app:layout_constraintEnd_toEndOf="@+id/Champion_Profile_icon" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
