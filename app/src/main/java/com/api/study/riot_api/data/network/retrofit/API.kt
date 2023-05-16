@@ -2,6 +2,7 @@ package com.api.study.riot_api.data.network.retrofit
 
 import com.api.study.riot_api.data.network.retrofit.response.User_Information_response
 import com.api.study.riot_api.data.network.retrofit.response.User_matchesId_response
+import com.api.study.riot_api.data.network.retrofit.response.lol_versions
 import com.api.study.riot_api.data.network.retrofit.response.user_matches_response.User_matches_response
 import retrofit2.Call
 import retrofit2.http.GET
@@ -45,4 +46,7 @@ interface API {
         @Path(value = "matchId") matchId: String,
         @Query(value = "api_key") apt_key: String
     ): User_matches_response
+
+    @GET("/api/versions.json")
+    suspend fun get_lol_versions(): lol_versions
 }
