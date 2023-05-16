@@ -1,14 +1,18 @@
 package com.api.study.riot_api.viewModel
 
+import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.api.study.riot_api.data.model.MySharedPreferences
 import com.api.study.riot_api.data.network.retrofit.API
 import com.api.study.riot_api.data.network.retrofit.ClientRetrofit
 import com.api.study.riot_api.data.network.retrofit.response.User_Information_response
 import com.api.study.riot_api.data.network.retrofit.response.User_matchesId_response
+import com.api.study.riot_api.data.network.retrofit.response.lol_versions
 import com.api.study.riot_api.data.network.retrofit.response.user_matches_response.User_matches_response
+import com.api.study.riot_api.ui.activity.MainActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -17,6 +21,7 @@ import kotlinx.coroutines.withContext
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import retrofit2.create
 import java.lang.Exception
 
 class Main_ViewModel : ViewModel() {
@@ -28,6 +33,7 @@ class Main_ViewModel : ViewModel() {
 
     var krRetrofitInstance: API = ClientRetrofit.krGetInstance().create(API::class.java)
     var AsiarRetrofitInstance: API = ClientRetrofit.AsiarGetInstance().create(API::class.java)
+    var ddragonGetInstance: API = ClientRetrofit.ddragonGetInstance().create(API::class.java)
 
 
     private val viewModelScope = CoroutineScope(Dispatchers.Main)
@@ -53,7 +59,21 @@ class Main_ViewModel : ViewModel() {
         get() = _recyclerView
 
 
+    fun get_versions() {
+        var data: lol_versions
+        CoroutineScope(Dispatchers.IO).async {
+            data = ddragonGetInstance.get_lol_versions()
+            Log.d("롤", data[0])
+        }
+    }
+
+    fun SharedPreferences_puuid(context: Context, puuid: String){
+        MySharedPreferences(context).puuid = puuid
+    }
+
+
     fun setInputUserName(text: String) = viewModelScope.launch {
+        get_versions()
         val data = ArrayList<User_matches_response>()
         _userName.postValue(text)
         val userMatchesList = mutableListOf<User_matches_response>()
@@ -64,27 +84,23 @@ class Main_ViewModel : ViewModel() {
                         text, api_key
                     )
                 }
-                Log.d("user_information", UserData.await().toString())
 
                 val puuid = UserData.await().puuid
+                SharedPreferences_puuid(MainActivity.ApplicationContext(),puuid)
                 val userMatchesId = async {
                     AsiarRetrofitInstance.get_user_matchesId(
                         puuid, api_key, 0, 10
                     )
                 }
                 userMatchesList.clear()
-                Log.d("UserMatchesId", userMatchesId.await().toString())
                 for (userMatchesId in userMatchesId.await()) {
-                    Log.d("for문", userMatchesId)
                     try {
                         val userMatches = async {
                             AsiarRetrofitInstance.get_user_matches(
                                 userMatchesId, api_key
                             )
                         }
-                        Log.d("챔피언프로필",userMatches.await().info.participants[0].championId.toString())
                         data.add(userMatches.await())
-                        Log.d("상태", userMatches.await().toString())
                     } catch (e: Exception) {
                         Log.d("ERROR", e.message.toString())
                     }
