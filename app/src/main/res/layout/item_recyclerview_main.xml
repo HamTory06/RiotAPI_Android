@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
@@ -18,10 +19,9 @@
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/Champion_Profile_icon"
             android:src="@drawable/img"
-            android:background="@drawable/champion_profile_icon_background"
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:layout_marginStart="40dp"
+            android:layout_marginStart="30dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -37,6 +37,97 @@
             android:background="@drawable/champion_level_background"
             app:layout_constraintBottom_toBottomOf="@+id/Champion_Profile_icon"
             app:layout_constraintEnd_toEndOf="@+id/Champion_Profile_icon" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/Champion_spell_id1"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="10dp"
+            app:layout_constraintStart_toEndOf="@+id/Champion_Profile_icon"
+            app:layout_constraintTop_toTopOf="@+id/Champion_Profile_icon" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/Champion_spell_id2"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="10dp"
+            app:layout_constraintBottom_toBottomOf="@+id/Champion_Profile_icon"
+            app:layout_constraintStart_toEndOf="@+id/Champion_Profile_icon" />
+        
+        
+<!--        <androidx.appcompat.widget.LinearLayoutCompat-->
+<!--            android:id="@+id/KDA"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content">-->
+<!--            <androidx.appcompat.widget.AppCompatTextView-->
+<!--                android:layout_width=""-->
+<!--                android:layout_height=""-->
+<!--            -->
+<!--        </androidx.appcompat.widget.LinearLayoutCompat>-->
+        
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/Champion_spell_item1"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/Champion_spell_item2"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/Champion_spell_item1"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/Champion_spell_item3"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/Champion_spell_item2"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/Champion_spell_item4"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/Champion_spell_item3"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/Champion_spell_item5"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/Champion_spell_item4"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/Champion_spell_item6"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/Champion_spell_item5"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+        
+
+
+
+/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
