@@ -1,5 +1,6 @@
 package com.api.study.riot_api.ui.activity
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
@@ -16,6 +17,17 @@ class LoginActivity : AppCompatActivity() {
         )
     }
     private val viewModel: Login_ViewModel by lazy { ViewModelProvider(this)[Login_ViewModel::class.java] }
+
+    companion object {
+        lateinit var instance: LoginActivity
+        fun ApplicationContext() : Context {
+            return instance.applicationContext
+        }
+    }
+
+    init{
+        LoginActivity.instance = this
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
