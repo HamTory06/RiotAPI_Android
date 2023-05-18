@@ -1,6 +1,6 @@
 package com.api.study.riot_api.ui.adapter
 
-data class Main_RecyclerView_Data(
+data class MainRecyclerViewData(
     val champion_profile: Int, //챔피언 프로필사진
     val champion_level: Int, //챔피언 레밸
     val champion_FlashID1: Int, //챔피언 스펠

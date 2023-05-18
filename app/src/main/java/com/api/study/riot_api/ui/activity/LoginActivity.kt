@@ -7,7 +7,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.api.study.riot_api.R
 import com.api.study.riot_api.databinding.ActivityLoginBinding
-import com.api.study.riot_api.viewModel.Login_ViewModel
+import com.api.study.riot_api.viewModel.LoginViewModel
 
 class LoginActivity : AppCompatActivity() {
     private val binding: ActivityLoginBinding by lazy {
@@ -16,7 +16,7 @@ class LoginActivity : AppCompatActivity() {
             R.layout.activity_login
         )
     }
-    private val viewModel: Login_ViewModel by lazy { ViewModelProvider(this)[Login_ViewModel::class.java] }
+    private val viewModel: LoginViewModel by lazy { ViewModelProvider(this)[LoginViewModel::class.java] }
 
     companion object {
         lateinit var instance: LoginActivity

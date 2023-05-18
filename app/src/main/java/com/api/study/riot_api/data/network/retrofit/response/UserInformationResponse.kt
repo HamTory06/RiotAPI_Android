@@ -1,6 +1,6 @@
 package com.api.study.riot_api.data.network.retrofit.response
 
-data class User_Information_response(
+data class UserInformationResponse(
     val accountId: String,
     val id: String,
     val name: String,
