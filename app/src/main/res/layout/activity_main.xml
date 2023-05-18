@@ -5,7 +5,7 @@
     <data>
         <variable
             name="main"
-            type="com.api.study.riot_api.viewModel.Main_ViewModel" />
+            type="com.api.study.riot_api.viewModel.MainViewModel" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

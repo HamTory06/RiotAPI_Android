@@ -6,7 +6,7 @@
     <data>
         <variable
             name="RecyclerView"
-            type="com.api.study.riot_api.ui.adapter.Main_RecyclerAdapter" />
+            type="com.api.study.riot_api.ui.adapter.MainRecyclerAdapter" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -21,7 +21,7 @@
             android:src="@drawable/img"
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:layout_marginStart="30dp"
+            android:layout_marginStart="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -53,39 +53,57 @@
             android:layout_marginStart="10dp"
             app:layout_constraintBottom_toBottomOf="@+id/Champion_Profile_icon"
             app:layout_constraintStart_toEndOf="@+id/Champion_Profile_icon" />
-        
-        
+
+
 <!--        <androidx.appcompat.widget.LinearLayoutCompat-->
 <!--            android:id="@+id/KDA"-->
-<!--            app:layout_constraintTop_toTopOf="parent"-->
 <!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content">-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:layout_constraintBottom_toBottomOf="@+id/Champion_spell_id1"-->
+<!--            app:layout_constraintTop_toTopOf="@+id/Champion_spell_id1">-->
+
 <!--            <androidx.appcompat.widget.AppCompatTextView-->
-<!--                android:layout_width=""-->
-<!--                android:layout_height=""-->
-<!--            -->
+<!--                android:id="@+id/"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+
 <!--        </androidx.appcompat.widget.LinearLayoutCompat>-->
-        
+
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginEnd="10dp"
+            app:layout_constraintBottom_toBottomOf="@+id/Champion_spell_id2"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="@+id/Champion_spell_id2">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/Champion_spell_item0"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_margin="1dp"
+                android:background="@drawable/champion_item_background"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/Champion_spell_item1"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
+                android:layout_margin="1dp"
+                android:background="@drawable/champion_item_background"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/Champion_spell_item0"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/Champion_spell_item2"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
+                android:layout_margin="1dp"
+                android:background="@drawable/champion_item_background"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/Champion_spell_item1"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -94,6 +112,8 @@
                 android:id="@+id/Champion_spell_item3"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
+                android:layout_margin="1dp"
+                android:background="@drawable/champion_item_background"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/Champion_spell_item2"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -102,6 +122,8 @@
                 android:id="@+id/Champion_spell_item4"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
+                android:layout_margin="1dp"
+                android:background="@drawable/champion_item_background"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/Champion_spell_item3"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -110,6 +132,8 @@
                 android:id="@+id/Champion_spell_item5"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
+                android:layout_margin="1dp"
+                android:background="@drawable/champion_item_background"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/Champion_spell_item4"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -118,6 +142,8 @@
                 android:id="@+id/Champion_spell_item6"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
+                android:layout_margin="1dp"
+                android:background="@drawable/champion_item_background"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/Champion_spell_item5"
                 app:layout_constraintTop_toTopOf="parent" />

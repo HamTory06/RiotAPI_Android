@@ -4,7 +4,7 @@
     <data>
         <variable
             name="Login"
-            type="com.api.study.riot_api.viewModel.Login_ViewModel" />
+            type="com.api.study.riot_api.viewModel.LoginViewModel" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
