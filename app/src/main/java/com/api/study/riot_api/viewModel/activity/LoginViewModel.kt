@@ -1,4 +1,4 @@
-package com.api.study.riot_api.viewModel
+package com.api.study.riot_api.viewModel.activity
 
 import androidx.lifecycle.ViewModel
 

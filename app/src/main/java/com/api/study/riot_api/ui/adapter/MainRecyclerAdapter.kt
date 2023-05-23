@@ -2,7 +2,6 @@ package com.api.study.riot_api.ui.adapter
 
 import android.content.Context
 import android.graphics.Color
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -52,8 +51,6 @@ class MainRecyclerAdapter(var data: ArrayList<UserMatchesResponse>, val context:
 
         for (i in 0..9) {
             if (data[position].info.participants[i].puuid == MySharedPreferences(MainActivity.ApplicationContext()).puuid) {
-                Log.d("아이템", data[position].info.participants[i].summoner1Id.toString())
-                Log.d("아이템", data[position].info.participants[i].summoner2Id.toString())
                 when (data[position].info.participants[i].summoner1Id.toString()) {
                     "21" -> riotAPI.getImage_Champion_spell(
                         holder.championSpellId1,

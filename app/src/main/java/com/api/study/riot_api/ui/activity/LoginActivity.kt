@@ -7,7 +7,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.api.study.riot_api.R
 import com.api.study.riot_api.databinding.ActivityLoginBinding
-import com.api.study.riot_api.viewModel.LoginViewModel
+import com.api.study.riot_api.viewModel.activity.LoginViewModel
 
 class LoginActivity : AppCompatActivity() {
     private val binding: ActivityLoginBinding by lazy {

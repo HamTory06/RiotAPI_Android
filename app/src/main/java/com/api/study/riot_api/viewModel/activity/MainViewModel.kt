@@ -1,4 +1,4 @@
-package com.api.study.riot_api.viewModel
+package com.api.study.riot_api.viewModel.activity
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -73,6 +73,7 @@ class MainViewModel : ViewModel() {
                     )
                 }
 
+                Log.d("유저 정보",userData.await().toString())
                 val puuid = userData.await().puuid
                 MySharedPreferences(MainActivity.ApplicationContext()).puuid = puuid
                 val userMatchesId = async {
