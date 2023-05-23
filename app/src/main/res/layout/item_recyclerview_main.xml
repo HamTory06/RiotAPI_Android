@@ -18,7 +18,6 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/Champion_Profile_icon"
-            android:src="@drawable/img"
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:layout_marginStart="20dp"
@@ -30,7 +29,6 @@
             android:id="@+id/level"
             android:layout_width="25dp"
             android:layout_height="25dp"
-            android:text="18"
             android:textSize="13dp"
             android:gravity="center"
             android:textColor="@color/white"
@@ -55,19 +53,37 @@
             app:layout_constraintStart_toEndOf="@+id/Champion_Profile_icon" />
 
 
-<!--        <androidx.appcompat.widget.LinearLayoutCompat-->
-<!--            android:id="@+id/KDA"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            app:layout_constraintBottom_toBottomOf="@+id/Champion_spell_id1"-->
-<!--            app:layout_constraintTop_toTopOf="@+id/Champion_spell_id1">-->
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/KDA"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            app:layout_constraintBottom_toBottomOf="@+id/Champion_spell_id1"
+            app:layout_constraintStart_toEndOf="@+id/Champion_spell_id1"
+            app:layout_constraintTop_toTopOf="@+id/Champion_spell_id1">
 
-<!--            <androidx.appcompat.widget.AppCompatTextView-->
-<!--                android:id="@+id/"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/K"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="1" />
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/D"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
 
-<!--        </androidx.appcompat.widget.LinearLayoutCompat>-->
+                android:text="1" />
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/A"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+
+                android:text="1" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
 
         <androidx.appcompat.widget.LinearLayoutCompat
@@ -149,11 +165,6 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
-        
-
-
-
-/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
