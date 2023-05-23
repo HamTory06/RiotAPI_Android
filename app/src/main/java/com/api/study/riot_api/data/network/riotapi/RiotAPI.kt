@@ -10,11 +10,12 @@ import com.bumptech.glide.request.RequestOptions
 
 class RiotAPI {
 
-    val requestOptions = RequestOptions()
+    private val requestOptions = RequestOptions()
         .transform(RoundedCorners(10))
+
     fun getImage_Champion_Profile_icon(binding: ImageView, ID: String, version: String) {
         Glide.with(MainActivity.ApplicationContext())
-            .load("https://ddragon.leagueoflegends.com/cdn/13.10.1/img/champion/${ID}.png")
+            .load("https://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${ID}.png")
             .into(binding)
     }
 
@@ -26,7 +27,6 @@ class RiotAPI {
     }
 
     fun getImage_Champion_item(binding: ImageView, ID: String, version: String) {
-        Log.d("상태","https://ddragon.leagueoflegends.com/cdn/${version}/img/item/${ID}.png")
         Glide.with(MainActivity.ApplicationContext())
             .load("https://ddragon.leagueoflegends.com/cdn/${version}/img/item/${ID}.png")
             .apply(requestOptions)
