@@ -52,69 +52,243 @@ class MainRecyclerAdapter(var data: ArrayList<UserMatchesResponse>, val context:
 
         for (i in 0..9) {
             if (data[position].info.participants[i].puuid == MySharedPreferences(MainActivity.ApplicationContext()).puuid) {
-                Log.d("아이템",data[position].info.participants[i].summoner1Id.toString())
-                Log.d("아이템",data[position].info.participants[i].summoner2Id.toString())
-                when(data[position].info.participants[i].summoner1Id.toString()){
-                    "21" -> riotAPI.getImage_Champion_spell(holder.championSpellId1, "SummonerBarrier",version)
-                    "1" -> riotAPI.getImage_Champion_spell(holder.championSpellId2, "SummonerBoost",version)
-                    "14" -> riotAPI.getImage_Champion_spell(holder.championSpellId1, "SummonerDot",version)
-                    "3" -> riotAPI.getImage_Champion_spell(holder.championSpellId1, "SummonerExhaust",version)
-                    "4" -> riotAPI.getImage_Champion_spell(holder.championSpellId1, "SummonerFlash",version)
-                    "6" -> riotAPI.getImage_Champion_spell(holder.championSpellId1, "SummonerHaste",version)
-                    "7" -> riotAPI.getImage_Champion_spell(holder.championSpellId1, "SummonerHeal",version)
-                    "13" -> riotAPI.getImage_Champion_spell(holder.championSpellId1, "SummonerMana",version)
-                    "30" -> riotAPI.getImage_Champion_spell(holder.championSpellId1, "SummonerPoroRecall",version)
-                    "32" -> riotAPI.getImage_Champion_spell(holder.championSpellId1, "SummonerSnowball",version)
-                    "11" -> riotAPI.getImage_Champion_spell(holder.championSpellId1, "SummonerSmite",version)
-                    "31" -> riotAPI.getImage_Champion_spell(holder.championSpellId1, "SummonerPoroThrow",version)
-                    "39" -> riotAPI.getImage_Champion_spell(holder.championSpellId1, "SummonerSnowball",version)
-                    "12" -> riotAPI.getImage_Champion_spell(holder.championSpellId1, "SummonerTeleport",version)
-                    "54" -> riotAPI.getImage_Champion_spell(holder.championSpellId1, "Summoner_UltBookPlaceholder",version)
-                    "55" -> riotAPI.getImage_Champion_spell(holder.championSpellId1, "Summoner_UltBookSmitePlaceholder",version)
+                Log.d("아이템", data[position].info.participants[i].summoner1Id.toString())
+                Log.d("아이템", data[position].info.participants[i].summoner2Id.toString())
+                when (data[position].info.participants[i].summoner1Id.toString()) {
+                    "21" -> riotAPI.getImage_Champion_spell(
+                        holder.championSpellId1,
+                        "SummonerBarrier",
+                        version
+                    )
+
+                    "1" -> riotAPI.getImage_Champion_spell(
+                        holder.championSpellId2,
+                        "SummonerBoost",
+                        version
+                    )
+
+                    "14" -> riotAPI.getImage_Champion_spell(
+                        holder.championSpellId1,
+                        "SummonerDot",
+                        version
+                    )
+
+                    "3" -> riotAPI.getImage_Champion_spell(
+                        holder.championSpellId1,
+                        "SummonerExhaust",
+                        version
+                    )
+
+                    "4" -> riotAPI.getImage_Champion_spell(
+                        holder.championSpellId1,
+                        "SummonerFlash",
+                        version
+                    )
+
+                    "6" -> riotAPI.getImage_Champion_spell(
+                        holder.championSpellId1,
+                        "SummonerHaste",
+                        version
+                    )
+
+                    "7" -> riotAPI.getImage_Champion_spell(
+                        holder.championSpellId1,
+                        "SummonerHeal",
+                        version
+                    )
+
+                    "13" -> riotAPI.getImage_Champion_spell(
+                        holder.championSpellId1,
+                        "SummonerMana",
+                        version
+                    )
+
+                    "30" -> riotAPI.getImage_Champion_spell(
+                        holder.championSpellId1,
+                        "SummonerPoroRecall",
+                        version
+                    )
+
+                    "32" -> riotAPI.getImage_Champion_spell(
+                        holder.championSpellId1,
+                        "SummonerSnowball",
+                        version
+                    )
+
+                    "11" -> riotAPI.getImage_Champion_spell(
+                        holder.championSpellId1,
+                        "SummonerSmite",
+                        version
+                    )
+
+                    "31" -> riotAPI.getImage_Champion_spell(
+                        holder.championSpellId1,
+                        "SummonerPoroThrow",
+                        version
+                    )
+
+                    "39" -> riotAPI.getImage_Champion_spell(
+                        holder.championSpellId1,
+                        "SummonerSnowball",
+                        version
+                    )
+
+                    "12" -> riotAPI.getImage_Champion_spell(
+                        holder.championSpellId1,
+                        "SummonerTeleport",
+                        version
+                    )
+
+                    "54" -> riotAPI.getImage_Champion_spell(
+                        holder.championSpellId1,
+                        "Summoner_UltBookPlaceholder",
+                        version
+                    )
+
+                    "55" -> riotAPI.getImage_Champion_spell(
+                        holder.championSpellId1,
+                        "Summoner_UltBookSmitePlaceholder",
+                        version
+                    )
                 }
 
-                when(data[position].info.participants[i].summoner2Id.toString()){
-                    "21" -> riotAPI.getImage_Champion_spell(holder.championSpellId2, "SummonerBarrier",version)
-                    "1" -> riotAPI.getImage_Champion_spell(holder.championSpellId2, "SummonerBoost",version)
-                    "14" -> riotAPI.getImage_Champion_spell(holder.championSpellId2, "SummonerDot",version)
-                    "3" -> riotAPI.getImage_Champion_spell(holder.championSpellId2, "SummonerExhaust",version)
-                    "4" -> riotAPI.getImage_Champion_spell(holder.championSpellId2, "SummonerFlash",version)
-                    "6" -> riotAPI.getImage_Champion_spell(holder.championSpellId2, "SummonerHaste",version)
-                    "7" -> riotAPI.getImage_Champion_spell(holder.championSpellId2, "SummonerHeal",version)
-                    "13" -> riotAPI.getImage_Champion_spell(holder.championSpellId2, "SummonerMana",version)
-                    "30" -> riotAPI.getImage_Champion_spell(holder.championSpellId2, "SummonerPoroRecall",version)
-                    "32" -> riotAPI.getImage_Champion_spell(holder.championSpellId2, "SummonerSmite",version)
-                    "11" -> riotAPI.getImage_Champion_spell(holder.championSpellId2, "SummonerSnowURFSnowball_Mark",version)
-                    "31" -> riotAPI.getImage_Champion_spell(holder.championSpellId2, "SummonerPoroThrow",version)
-                    "39" -> riotAPI.getImage_Champion_spell(holder.championSpellId2, "SummonerSnowball",version)
-                    "12" -> riotAPI.getImage_Champion_spell(holder.championSpellId2, "SummonerTeleport",version)
-                    "54" -> riotAPI.getImage_Champion_spell(holder.championSpellId2, "Summoner_UltBookPlaceholder",version)
-                    "55" -> riotAPI.getImage_Champion_spell(holder.championSpellId2, "Summoner_UltBookSmitePlaceholder",version)
+                when (data[position].info.participants[i].summoner2Id.toString()) {
+                    "21" -> riotAPI.getImage_Champion_spell(
+                        holder.championSpellId2,
+                        "SummonerBarrier",
+                        version
+                    )
+
+                    "1" -> riotAPI.getImage_Champion_spell(
+                        holder.championSpellId2,
+                        "SummonerBoost",
+                        version
+                    )
+
+                    "14" -> riotAPI.getImage_Champion_spell(
+                        holder.championSpellId2,
+                        "SummonerDot",
+                        version
+                    )
+
+                    "3" -> riotAPI.getImage_Champion_spell(
+                        holder.championSpellId2,
+                        "SummonerExhaust",
+                        version
+                    )
+
+                    "4" -> riotAPI.getImage_Champion_spell(
+                        holder.championSpellId2,
+                        "SummonerFlash",
+                        version
+                    )
+
+                    "6" -> riotAPI.getImage_Champion_spell(
+                        holder.championSpellId2,
+                        "SummonerHaste",
+                        version
+                    )
+
+                    "7" -> riotAPI.getImage_Champion_spell(
+                        holder.championSpellId2,
+                        "SummonerHeal",
+                        version
+                    )
+
+                    "13" -> riotAPI.getImage_Champion_spell(
+                        holder.championSpellId2,
+                        "SummonerMana",
+                        version
+                    )
+
+                    "30" -> riotAPI.getImage_Champion_spell(
+                        holder.championSpellId2,
+                        "SummonerPoroRecall",
+                        version
+                    )
+
+                    "32" -> riotAPI.getImage_Champion_spell(
+                        holder.championSpellId2,
+                        "SummonerSmite",
+                        version
+                    )
+
+                    "11" -> riotAPI.getImage_Champion_spell(
+                        holder.championSpellId2,
+                        "SummonerSnowURFSnowball_Mark",
+                        version
+                    )
+
+                    "31" -> riotAPI.getImage_Champion_spell(
+                        holder.championSpellId2,
+                        "SummonerPoroThrow",
+                        version
+                    )
+
+                    "39" -> riotAPI.getImage_Champion_spell(
+                        holder.championSpellId2,
+                        "SummonerSnowball",
+                        version
+                    )
+
+                    "12" -> riotAPI.getImage_Champion_spell(
+                        holder.championSpellId2,
+                        "SummonerTeleport",
+                        version
+                    )
+
+                    "54" -> riotAPI.getImage_Champion_spell(
+                        holder.championSpellId2,
+                        "Summoner_UltBookPlaceholder",
+                        version
+                    )
+
+                    "55" -> riotAPI.getImage_Champion_spell(
+                        holder.championSpellId2,
+                        "Summoner_UltBookSmitePlaceholder",
+                        version
+                    )
                 }
 
                 riotAPI.getImage_Champion_Profile_icon(
-                    holder.championProfileIcon, data[position].info.participants[i].championName,version
+                    holder.championProfileIcon,
+                    data[position].info.participants[i].championName,
+                    version
                 )
                 riotAPI.getImage_Champion_item(
-                    holder.championItemId0, data[position].info.participants[i].item0.toString(),version
+                    holder.championItemId0,
+                    data[position].info.participants[i].item0.toString(),
+                    version
                 )
                 riotAPI.getImage_Champion_item(
-                    holder.championItemId1, data[position].info.participants[i].item1.toString(),version
+                    holder.championItemId1,
+                    data[position].info.participants[i].item1.toString(),
+                    version
                 )
                 riotAPI.getImage_Champion_item(
-                    holder.championItemId2, data[position].info.participants[i].item2.toString(),version
+                    holder.championItemId2,
+                    data[position].info.participants[i].item2.toString(),
+                    version
                 )
                 riotAPI.getImage_Champion_item(
-                    holder.championItemId3, data[position].info.participants[i].item3.toString(),version
+                    holder.championItemId3,
+                    data[position].info.participants[i].item3.toString(),
+                    version
                 )
                 riotAPI.getImage_Champion_item(
-                    holder.championItemId4, data[position].info.participants[i].item4.toString(),version
+                    holder.championItemId4,
+                    data[position].info.participants[i].item4.toString(),
+                    version
                 )
                 riotAPI.getImage_Champion_item(
-                    holder.championItemId5, data[position].info.participants[i].item5.toString(),version
+                    holder.championItemId5,
+                    data[position].info.participants[i].item5.toString(),
+                    version
                 )
                 riotAPI.getImage_Champion_item(
-                    holder.championItemId6, data[position].info.participants[i].item6.toString(),version
+                    holder.championItemId6,
+                    data[position].info.participants[i].item6.toString(),
+                    version
                 )
 
                 holder.championLevel.text =
@@ -128,7 +302,7 @@ class MainRecyclerAdapter(var data: ArrayList<UserMatchesResponse>, val context:
                 if (data[position].info.participants[i].win && data[position].info.participants[i].champLevel == 1) {
                     //무승부
                     holder.item.setBackgroundColor(Color.rgb(247, 247, 249))
-                } else if(data[position].info.participants[i].win) {
+                } else if (data[position].info.participants[i].win) {
                     //패
                     holder.item.setBackgroundColor(Color.rgb(255, 240, 243))
                 } else {
