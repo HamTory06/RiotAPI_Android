@@ -8,28 +8,29 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.api.study.riot_api.R
 import com.api.study.riot_api.databinding.FragmentChampionInformationBinding
-import com.api.study.riot_api.databinding.FragmentUserInformationBinding
-import com.api.study.riot_api.viewModel.fragment.UserInformationViewModel
+import com.api.study.riot_api.viewModel.fragment.ChampionInformationViewModel
 
+class ChampionInformationFragment : Fragment() {
 
-class UserInformationFragment : Fragment() {
-
-    lateinit var binding: FragmentUserInformationBinding
+    lateinit var binding: FragmentChampionInformationBinding
 
     private val viewModel by lazy {
-        ViewModelProvider(this)[UserInformationViewModel::class.java]
+        ViewModelProvider(this)[ChampionInformationViewModel::class.java]
     }
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentUserInformationBinding.inflate(inflater, container, false)
+    ): View? {
+        binding = FragmentChampionInformationBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.userInformation = viewModel
+        binding.championInformation = viewModel
     }
+
 }
