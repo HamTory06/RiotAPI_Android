@@ -3,7 +3,6 @@ package com.api.study.riot_api.ui.activity
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -11,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.api.study.riot_api.R
 import com.api.study.riot_api.databinding.ActivityMainBinding
 import com.api.study.riot_api.ui.adapter.MainRecyclerAdapter
-import com.api.study.riot_api.viewModel.MainViewModel
+import com.api.study.riot_api.viewModel.activity.MainViewModel
 
 class MainActivity : AppCompatActivity() {
 
