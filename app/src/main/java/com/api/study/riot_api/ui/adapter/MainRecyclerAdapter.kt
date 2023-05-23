@@ -33,9 +33,9 @@ class MainRecyclerAdapter(var data: ArrayList<UserMatchesResponse>, val context:
         var championItemId4 = binding.ChampionSpellItem4
         var championItemId5 = binding.ChampionSpellItem5
         var championItemId6 = binding.ChampionSpellItem6
-//        val championKill = binding.
-//        val championDeath = binding.
-//        val championAssist = binding.
+        val championKill = binding.K
+        val championDeath = binding.D
+        val championAssist = binding.A
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -119,6 +119,11 @@ class MainRecyclerAdapter(var data: ArrayList<UserMatchesResponse>, val context:
 
                 holder.championLevel.text =
                     data[position].info.participants[i].champLevel.toString()
+
+                holder.championKill.text = data[position].info.participants[i].kills.toString()
+                holder.championDeath.text = data[position].info.participants[i].deaths.toString()
+                holder.championAssist.text = data[position].info.participants[i].assists.toString()
+
 
                 if (data[position].info.participants[i].win && data[position].info.participants[i].champLevel == 1) {
                     //무승부
