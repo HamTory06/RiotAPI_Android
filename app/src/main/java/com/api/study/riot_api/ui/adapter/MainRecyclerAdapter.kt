@@ -299,7 +299,7 @@ class MainRecyclerAdapter(var data: ArrayList<UserMatchesResponse>, val context:
                 if (data[position].info.participants[i].win && data[position].info.participants[i].champLevel == 1) {
                     //무승부
                     holder.item.setBackgroundColor(Color.rgb(247, 247, 249))
-                } else if (data[position].info.participants[i].win) {
+                } else if (!data[position].info.participants[i].win) {
                     //패
                     holder.item.setBackgroundColor(Color.rgb(255, 240, 243))
                 } else {
