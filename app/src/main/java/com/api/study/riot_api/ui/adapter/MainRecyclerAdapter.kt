@@ -12,29 +12,32 @@ import com.api.study.riot_api.data.network.retrofit.response.user_matches_respon
 import com.api.study.riot_api.data.network.riotapi.RiotAPI
 import com.api.study.riot_api.databinding.ItemRecyclerviewMainBinding
 import com.api.study.riot_api.ui.activity.MainActivity
+import com.api.study.riot_api.viewModel.activity.MainViewModel
 
 class MainRecyclerAdapter(var data: ArrayList<UserMatchesResponse>, val context: Context) :
     RecyclerView.Adapter<MainRecyclerAdapter.MyViewHolder>() {
 
     private val riotAPI = RiotAPI()
+    private val mainViewModel = MainViewModel()
 
     class MyViewHolder(private val binding: ItemRecyclerviewMainBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        var championProfileIcon = binding.ChampionProfileIcon
-        var championLevel = binding.level
-        var item = binding.item
-        var championSpellId1 = binding.ChampionSpellId1
-        var championSpellId2 = binding.ChampionSpellId2
-        var championItemId0 = binding.ChampionSpellItem0
-        var championItemId1 = binding.ChampionSpellItem1
-        var championItemId2 = binding.ChampionSpellItem2
-        var championItemId3 = binding.ChampionSpellItem3
-        var championItemId4 = binding.ChampionSpellItem4
-        var championItemId5 = binding.ChampionSpellItem5
-        var championItemId6 = binding.ChampionSpellItem6
+        val championProfileIcon = binding.ChampionProfileIcon
+        val championLevel = binding.level
+        val item = binding.item
+        val championSpellId1 = binding.ChampionSpellId1
+        val championSpellId2 = binding.ChampionSpellId2
+        val championItemId0 = binding.ChampionSpellItem0
+        val championItemId1 = binding.ChampionSpellItem1
+        val championItemId2 = binding.ChampionSpellItem2
+        val championItemId3 = binding.ChampionSpellItem3
+        val championItemId4 = binding.ChampionSpellItem4
+        val championItemId5 = binding.ChampionSpellItem5
+        val championItemId6 = binding.ChampionSpellItem6
         val championKill = binding.K
         val championDeath = binding.D
         val championAssist = binding.A
+        val laterTime = binding.laterTime
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -295,8 +298,10 @@ class MainRecyclerAdapter(var data: ArrayList<UserMatchesResponse>, val context:
                 holder.championDeath.text = data[position].info.participants[i].deaths.toString()
                 holder.championAssist.text = data[position].info.participants[i].assists.toString()
 
+                holder.laterTime.text = mainViewModel.getTimeAfterGameOver(data[position].info.gameEndTimestamp)
 
-                if (data[position].info.participants[i].win && data[position].info.participants[i].champLevel == 1) {
+
+                if (data[position].info.participants[i].win && data[position].info.participants[i].champLevel < 3) {
                     //무승부
                     holder.item.setBackgroundColor(Color.rgb(247, 247, 249))
                 } else if (!data[position].info.participants[i].win) {
