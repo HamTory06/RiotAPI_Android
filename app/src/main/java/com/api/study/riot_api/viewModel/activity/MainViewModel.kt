@@ -17,6 +17,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import java.lang.Exception
+import java.time.Duration
+import java.time.Instant
+import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.temporal.ChronoUnit
 
 class MainViewModel : ViewModel() {
 
@@ -98,4 +103,32 @@ class MainViewModel : ViewModel() {
             _recyclerView.postValue(data)
         }
     }
+
+
+    fun getTimeAfterGameOver(gameEndTimestamp:Long): String{
+        val endDateTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(gameEndTimestamp), ZoneId.systemDefault())
+
+        // 현재 시간 얻기
+        val currentDateTime = LocalDateTime.now()
+
+        // 게임 종료 시간과 현재 시간의 차이 계산
+        val duration = Duration.between(endDateTime, currentDateTime)
+
+        val days = duration.toDays()
+        val hours = duration.toHours() % 24
+        val minutes = duration.toMinutes() % 60
+
+        return if(days == 0L && hours == 0L){
+            "${minutes.toInt()}분전"
+        } else if(days == 0L){
+            if(minutes < 30){
+                "${hours.toInt()+1}시간전"
+            } else {
+                "${hours.toInt()}시간전"
+            }
+        } else {
+            "${days.toInt()}일전"
+        }
+    }
+
 }
