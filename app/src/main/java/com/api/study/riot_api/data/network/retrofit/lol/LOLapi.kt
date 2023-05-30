@@ -1,16 +1,14 @@
-package com.api.study.riot_api.data.network.retrofit
+package com.api.study.riot_api.data.network.retrofit.lol
 
-import com.api.study.riot_api.data.network.retrofit.response.LOLVersionsResponse
-import com.api.study.riot_api.data.network.retrofit.response.UserInformationResponse
-import com.api.study.riot_api.data.network.retrofit.response.UserMatchesIdResponse
-import com.api.study.riot_api.data.network.retrofit.response.summoner_information_response.SummonerInformationResponse
-import com.api.study.riot_api.data.network.retrofit.response.user_matches_response.UserMatchesResponse
+import com.api.study.riot_api.data.network.retrofit.lol.response.UserInformationResponse
+import com.api.study.riot_api.data.network.retrofit.lol.response.UserMatchesIdResponse
+import com.api.study.riot_api.data.network.retrofit.lol.response.user_matches_response.UserMatchesResponse
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 
 
-interface API {
+interface LOLapi {
     @GET("lol/summoner/v4/summoners/by-name/{username}")
     suspend fun get_user_information_name(
         @Path(value = "username") name: String,
@@ -47,12 +45,5 @@ interface API {
         @Query(value = "api_key") apt_key: String
     ): UserMatchesResponse
 
-    @GET("/api/versions.json")
-    suspend fun get_lol_versions(): LOLVersionsResponse
 
-    @GET("/cdn/{version}/data/{local}/summoner.json")
-    suspend fun get_information_summoner(
-        @Path(value = "version") version: String,
-        @Path(value = "local") local: String
-    ): SummonerInformationResponse
 }
