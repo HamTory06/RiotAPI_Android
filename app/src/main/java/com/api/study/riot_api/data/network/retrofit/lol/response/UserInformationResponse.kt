@@ -1,4 +1,4 @@
-package com.api.study.riot_api.data.network.retrofit.response
+package com.api.study.riot_api.data.network.retrofit.lol.response
 
 data class UserInformationResponse(
     val accountId: String,
