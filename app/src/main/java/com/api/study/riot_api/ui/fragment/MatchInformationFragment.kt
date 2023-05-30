@@ -6,13 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import com.api.study.riot_api.databinding.FragmentMatchInformationBinding
+import com.api.study.riot_api.databinding.FragmentLolMatchInformationBinding
 import com.api.study.riot_api.viewModel.fragment.MatchInformationViewModel
 
 
 class MatchInformationFragment : Fragment() {
 
-    lateinit var binding: FragmentMatchInformationBinding
+    lateinit var binding: FragmentLolMatchInformationBinding
 
     private val viewModel: MatchInformationViewModel by lazy {
         ViewModelProvider(this)[MatchInformationViewModel::class.java]
@@ -21,7 +21,7 @@ class MatchInformationFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        binding = FragmentMatchInformationBinding.inflate(inflater, container, false)
+        binding = FragmentLolMatchInformationBinding.inflate(inflater, container, false)
         return binding.root
     }
 

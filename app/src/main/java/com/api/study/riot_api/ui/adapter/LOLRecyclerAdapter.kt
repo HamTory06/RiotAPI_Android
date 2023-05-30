@@ -8,19 +8,18 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.api.study.riot_api.R
 import com.api.study.riot_api.data.model.MySharedPreferences
-import com.api.study.riot_api.data.network.retrofit.response.user_matches_response.UserMatchesResponse
 import com.api.study.riot_api.data.network.riotapi.RiotAPI
-import com.api.study.riot_api.databinding.ItemRecyclerviewMainBinding
-import com.api.study.riot_api.ui.activity.MainActivity
-import com.api.study.riot_api.viewModel.activity.MainViewModel
+import com.api.study.riot_api.databinding.ItemRecyclerviewLolBinding
+import com.api.study.riot_api.ui.activity.LOLStatsSearchActivity
+import com.api.study.riot_api.viewModel.activity.LOLStatsSearchViewModel
 
-class MainRecyclerAdapter(var data: ArrayList<UserMatchesResponse>, val context: Context) :
-    RecyclerView.Adapter<MainRecyclerAdapter.MyViewHolder>() {
+class LOLRecyclerAdapter(var data: ArrayList<com.api.study.riot_api.data.network.retrofit.lol.response.user_matches_response.UserMatchesResponse>, val context: Context) :
+    RecyclerView.Adapter<LOLRecyclerAdapter.MyViewHolder>() {
 
     private val riotAPI = RiotAPI()
-    private val mainViewModel = MainViewModel()
+    private val mainViewModel = LOLStatsSearchViewModel()
 
-    class MyViewHolder(private val binding: ItemRecyclerviewMainBinding) :
+    class MyViewHolder(private val binding: ItemRecyclerviewLolBinding) :
         RecyclerView.ViewHolder(binding.root) {
         val championProfileIcon = binding.ChampionProfileIcon
         val championLevel = binding.level
@@ -42,110 +41,110 @@ class MainRecyclerAdapter(var data: ArrayList<UserMatchesResponse>, val context:
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding: ItemRecyclerviewMainBinding =
-            DataBindingUtil.inflate(inflater, R.layout.item_recyclerview_main, parent, false)
+        val binding: ItemRecyclerviewLolBinding =
+            DataBindingUtil.inflate(inflater, R.layout.item_recyclerview_lol, parent, false)
         return MyViewHolder(binding)
     }
 
     override fun getItemCount(): Int = data.size
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val version = MySharedPreferences(MainActivity.ApplicationContext()).version.toString()
+        val version = MySharedPreferences(LOLStatsSearchActivity.ApplicationContext()).version.toString()
 
         for (i in 0..9) {
-            if (data[position].info.participants[i].puuid == MySharedPreferences(MainActivity.ApplicationContext()).puuid) {
+            if (data[position].info.participants[i].puuid == MySharedPreferences(LOLStatsSearchActivity.ApplicationContext()).puuid) {
                 when (data[position].info.participants[i].summoner1Id.toString()) {
-                    "21" -> riotAPI.getImage_Champion_spell(
+                    "21" -> riotAPI.getImageChampionSpell(
                         holder.championSpellId1,
                         "SummonerBarrier",
                         version
                     )
 
-                    "1" -> riotAPI.getImage_Champion_spell(
+                    "1" -> riotAPI.getImageChampionSpell(
                         holder.championSpellId2,
                         "SummonerBoost",
                         version
                     )
 
-                    "14" -> riotAPI.getImage_Champion_spell(
+                    "14" -> riotAPI.getImageChampionSpell(
                         holder.championSpellId1,
                         "SummonerDot",
                         version
                     )
 
-                    "3" -> riotAPI.getImage_Champion_spell(
+                    "3" -> riotAPI.getImageChampionSpell(
                         holder.championSpellId1,
                         "SummonerExhaust",
                         version
                     )
 
-                    "4" -> riotAPI.getImage_Champion_spell(
+                    "4" -> riotAPI.getImageChampionSpell(
                         holder.championSpellId1,
                         "SummonerFlash",
                         version
                     )
 
-                    "6" -> riotAPI.getImage_Champion_spell(
+                    "6" -> riotAPI.getImageChampionSpell(
                         holder.championSpellId1,
                         "SummonerHaste",
                         version
                     )
 
-                    "7" -> riotAPI.getImage_Champion_spell(
+                    "7" -> riotAPI.getImageChampionSpell(
                         holder.championSpellId1,
                         "SummonerHeal",
                         version
                     )
 
-                    "13" -> riotAPI.getImage_Champion_spell(
+                    "13" -> riotAPI.getImageChampionSpell(
                         holder.championSpellId1,
                         "SummonerMana",
                         version
                     )
 
-                    "30" -> riotAPI.getImage_Champion_spell(
+                    "30" -> riotAPI.getImageChampionSpell(
                         holder.championSpellId1,
                         "SummonerPoroRecall",
                         version
                     )
 
-                    "32" -> riotAPI.getImage_Champion_spell(
+                    "32" -> riotAPI.getImageChampionSpell(
                         holder.championSpellId1,
                         "SummonerSnowball",
                         version
                     )
 
-                    "11" -> riotAPI.getImage_Champion_spell(
+                    "11" -> riotAPI.getImageChampionSpell(
                         holder.championSpellId1,
                         "SummonerSmite",
                         version
                     )
 
-                    "31" -> riotAPI.getImage_Champion_spell(
+                    "31" -> riotAPI.getImageChampionSpell(
                         holder.championSpellId1,
                         "SummonerPoroThrow",
                         version
                     )
 
-                    "39" -> riotAPI.getImage_Champion_spell(
+                    "39" -> riotAPI.getImageChampionSpell(
                         holder.championSpellId1,
                         "SummonerSnowball",
                         version
                     )
 
-                    "12" -> riotAPI.getImage_Champion_spell(
+                    "12" -> riotAPI.getImageChampionSpell(
                         holder.championSpellId1,
                         "SummonerTeleport",
                         version
                     )
 
-                    "54" -> riotAPI.getImage_Champion_spell(
+                    "54" -> riotAPI.getImageChampionSpell(
                         holder.championSpellId1,
                         "Summoner_UltBookPlaceholder",
                         version
                     )
 
-                    "55" -> riotAPI.getImage_Champion_spell(
+                    "55" -> riotAPI.getImageChampionSpell(
                         holder.championSpellId1,
                         "Summoner_UltBookSmitePlaceholder",
                         version
@@ -153,139 +152,139 @@ class MainRecyclerAdapter(var data: ArrayList<UserMatchesResponse>, val context:
                 }
 
                 when (data[position].info.participants[i].summoner2Id.toString()) {
-                    "21" -> riotAPI.getImage_Champion_spell(
+                    "21" -> riotAPI.getImageChampionSpell(
                         holder.championSpellId2,
                         "SummonerBarrier",
                         version
                     )
 
-                    "1" -> riotAPI.getImage_Champion_spell(
+                    "1" -> riotAPI.getImageChampionSpell(
                         holder.championSpellId2,
                         "SummonerBoost",
                         version
                     )
 
-                    "14" -> riotAPI.getImage_Champion_spell(
+                    "14" -> riotAPI.getImageChampionSpell(
                         holder.championSpellId2,
                         "SummonerDot",
                         version
                     )
 
-                    "3" -> riotAPI.getImage_Champion_spell(
+                    "3" -> riotAPI.getImageChampionSpell(
                         holder.championSpellId2,
                         "SummonerExhaust",
                         version
                     )
 
-                    "4" -> riotAPI.getImage_Champion_spell(
+                    "4" -> riotAPI.getImageChampionSpell(
                         holder.championSpellId2,
                         "SummonerFlash",
                         version
                     )
 
-                    "6" -> riotAPI.getImage_Champion_spell(
+                    "6" -> riotAPI.getImageChampionSpell(
                         holder.championSpellId2,
                         "SummonerHaste",
                         version
                     )
 
-                    "7" -> riotAPI.getImage_Champion_spell(
+                    "7" -> riotAPI.getImageChampionSpell(
                         holder.championSpellId2,
                         "SummonerHeal",
                         version
                     )
 
-                    "13" -> riotAPI.getImage_Champion_spell(
+                    "13" -> riotAPI.getImageChampionSpell(
                         holder.championSpellId2,
                         "SummonerMana",
                         version
                     )
 
-                    "30" -> riotAPI.getImage_Champion_spell(
+                    "30" -> riotAPI.getImageChampionSpell(
                         holder.championSpellId2,
                         "SummonerPoroRecall",
                         version
                     )
 
-                    "32" -> riotAPI.getImage_Champion_spell(
+                    "32" -> riotAPI.getImageChampionSpell(
                         holder.championSpellId2,
                         "SummonerSmite",
                         version
                     )
 
-                    "11" -> riotAPI.getImage_Champion_spell(
+                    "11" -> riotAPI.getImageChampionSpell(
                         holder.championSpellId2,
                         "SummonerSnowURFSnowball_Mark",
                         version
                     )
 
-                    "31" -> riotAPI.getImage_Champion_spell(
+                    "31" -> riotAPI.getImageChampionSpell(
                         holder.championSpellId2,
                         "SummonerPoroThrow",
                         version
                     )
 
-                    "39" -> riotAPI.getImage_Champion_spell(
+                    "39" -> riotAPI.getImageChampionSpell(
                         holder.championSpellId2,
                         "SummonerSnowball",
                         version
                     )
 
-                    "12" -> riotAPI.getImage_Champion_spell(
+                    "12" -> riotAPI.getImageChampionSpell(
                         holder.championSpellId2,
                         "SummonerTeleport",
                         version
                     )
 
-                    "54" -> riotAPI.getImage_Champion_spell(
+                    "54" -> riotAPI.getImageChampionSpell(
                         holder.championSpellId2,
                         "Summoner_UltBookPlaceholder",
                         version
                     )
 
-                    "55" -> riotAPI.getImage_Champion_spell(
+                    "55" -> riotAPI.getImageChampionSpell(
                         holder.championSpellId2,
                         "Summoner_UltBookSmitePlaceholder",
                         version
                     )
                 }
 
-                riotAPI.getImage_Champion_Profile_icon(
+                riotAPI.getImageChampionProfileIcon(
                     holder.championProfileIcon,
                     data[position].info.participants[i].championName,
                     version
                 )
-                riotAPI.getImage_Champion_item(
+                riotAPI.getImageChampionItem(
                     holder.championItemId0,
                     data[position].info.participants[i].item0.toString(),
                     version
                 )
-                riotAPI.getImage_Champion_item(
+                riotAPI.getImageChampionItem(
                     holder.championItemId1,
                     data[position].info.participants[i].item1.toString(),
                     version
                 )
-                riotAPI.getImage_Champion_item(
+                riotAPI.getImageChampionItem(
                     holder.championItemId2,
                     data[position].info.participants[i].item2.toString(),
                     version
                 )
-                riotAPI.getImage_Champion_item(
+                riotAPI.getImageChampionItem(
                     holder.championItemId3,
                     data[position].info.participants[i].item3.toString(),
                     version
                 )
-                riotAPI.getImage_Champion_item(
+                riotAPI.getImageChampionItem(
                     holder.championItemId4,
                     data[position].info.participants[i].item4.toString(),
                     version
                 )
-                riotAPI.getImage_Champion_item(
+                riotAPI.getImageChampionItem(
                     holder.championItemId5,
                     data[position].info.participants[i].item5.toString(),
                     version
                 )
-                riotAPI.getImage_Champion_item(
+                riotAPI.getImageChampionItem(
                     holder.championItemId6,
                     data[position].info.participants[i].item6.toString(),
                     version

@@ -8,38 +8,39 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.api.study.riot_api.R
-import com.api.study.riot_api.databinding.ActivityMainBinding
-import com.api.study.riot_api.ui.adapter.MainRecyclerAdapter
-import com.api.study.riot_api.viewModel.activity.MainViewModel
+import com.api.study.riot_api.databinding.ActivityLolStatsSearchBinding
+import com.api.study.riot_api.ui.adapter.LOLRecyclerAdapter
+import com.api.study.riot_api.viewModel.activity.LOLStatsSearchViewModel
 
-class MainActivity : AppCompatActivity() {
+class LOLStatsSearchActivity : AppCompatActivity() {
 
     companion object {
-        lateinit var instance: MainActivity
+        lateinit var instance: LOLStatsSearchActivity
         fun ApplicationContext() : Context {
             return instance.applicationContext
         }
-    }
-
-    private val binding: ActivityMainBinding by lazy {
-        DataBindingUtil.setContentView(
-            this,
-            R.layout.activity_main
-        )
     }
 
     init{
         instance = this
     }
 
-    private val viewModel: MainViewModel by lazy { ViewModelProvider(this)[MainViewModel::class.java] }
+    private val binding: ActivityLolStatsSearchBinding by lazy {
+        DataBindingUtil.setContentView(
+            this,
+            R.layout.activity_lol_stats_search
+        )
+    }
+
+
+
+    private val viewModel: LOLStatsSearchViewModel by lazy { ViewModelProvider(this)[LOLStatsSearchViewModel::class.java] }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding.main = viewModel
         binding.lifecycleOwner = this
         binding.mainRecyclerView.layoutManager = LinearLayoutManager(this)
     }
-
 
     override fun onStart() {
         super.onStart()
@@ -48,7 +49,7 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         viewModel.recycler.observe(this, Observer {
-            var newAdapter = MainRecyclerAdapter(it,this)
+            var newAdapter = LOLRecyclerAdapter(it,this)
             binding.mainRecyclerView.adapter = newAdapter
         })
     }

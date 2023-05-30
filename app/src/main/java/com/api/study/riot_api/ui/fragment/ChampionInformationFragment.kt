@@ -6,13 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import com.api.study.riot_api.R
-import com.api.study.riot_api.databinding.FragmentChampionInformationBinding
+import com.api.study.riot_api.databinding.FragmentLolChampionInformationBinding
 import com.api.study.riot_api.viewModel.fragment.ChampionInformationViewModel
 
 class ChampionInformationFragment : Fragment() {
 
-    lateinit var binding: FragmentChampionInformationBinding
+    lateinit var binding: FragmentLolChampionInformationBinding
 
     private val viewModel by lazy {
         ViewModelProvider(this)[ChampionInformationViewModel::class.java]
@@ -24,7 +23,7 @@ class ChampionInformationFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentChampionInformationBinding.inflate(inflater, container, false)
+        binding = FragmentLolChampionInformationBinding.inflate(inflater, container, false)
         return binding.root
     }
 
