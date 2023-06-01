@@ -9,10 +9,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.api.study.riot_api.R
 import com.api.study.riot_api.databinding.ActivityLolStatsSearchBinding
+import com.api.study.riot_api.ui.adapter.ItemRecyclerViewClickEvent
 import com.api.study.riot_api.ui.adapter.LOLRecyclerAdapter
 import com.api.study.riot_api.viewModel.activity.LOLStatsSearchViewModel
 
-class LOLStatsSearchActivity : AppCompatActivity() {
+class LOLStatsSearchActivity : AppCompatActivity(), ItemRecyclerViewClickEvent {
 
     companion object {
         lateinit var instance: LOLStatsSearchActivity
@@ -37,9 +38,9 @@ class LOLStatsSearchActivity : AppCompatActivity() {
     private val viewModel: LOLStatsSearchViewModel by lazy { ViewModelProvider(this)[LOLStatsSearchViewModel::class.java] }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding.main = viewModel
+        binding.lolStatsSearch = viewModel
         binding.lifecycleOwner = this
-        binding.mainRecyclerView.layoutManager = LinearLayoutManager(this)
+        binding.LOLRecyclerView.layoutManager = LinearLayoutManager(this)
     }
 
     override fun onStart() {
@@ -50,7 +51,7 @@ class LOLStatsSearchActivity : AppCompatActivity() {
         super.onResume()
         viewModel.recycler.observe(this, Observer {
             var newAdapter = LOLRecyclerAdapter(it,this)
-            binding.mainRecyclerView.adapter = newAdapter
+            binding.LOLRecyclerView.adapter = newAdapter
         })
     }
 
@@ -64,5 +65,9 @@ class LOLStatsSearchActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
+    }
+
+    override fun onItemClick(position: Int) {
+        TODO("Not yet implemented")
     }
 }
