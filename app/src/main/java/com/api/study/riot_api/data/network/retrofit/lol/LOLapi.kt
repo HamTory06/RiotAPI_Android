@@ -3,12 +3,17 @@ package com.api.study.riot_api.data.network.retrofit.lol
 import com.api.study.riot_api.data.network.retrofit.lol.response.UserInformationResponse
 import com.api.study.riot_api.data.network.retrofit.lol.response.UserMatchesIdResponse
 import com.api.study.riot_api.data.network.retrofit.lol.response.user_matches_response.UserMatchesResponse
+import com.api.study.riot_api.data.network.retrofit.riot.response.RiotVersionsResponse
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 
 
 interface LOLapi {
+
+    @GET("/api/versions.json")
+    suspend fun get_lol_versions(): RiotVersionsResponse
+
     @GET("lol/summoner/v4/summoners/by-name/{username}")
     suspend fun get_user_information_name(
         @Path(value = "username") name: String,
