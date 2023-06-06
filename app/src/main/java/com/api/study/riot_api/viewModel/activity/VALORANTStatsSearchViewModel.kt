@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 
 class VALORANTStatsSearchViewModel: ViewModel() {
     companion object {
-        const val API_KEY = "RGAPI-a3858bd5-0dd4-44ea-9af6-5016712cb9b9"
+        const val API_KEY = "RGAPI-2d419dcd-91f1-41db-b40c-eb3946710b4f"
     }
 
     private var krRetrofitInstance: VALORANTapi = ClientRetrofit.krGetInstance().create(VALORANTapi::class.java)
