@@ -6,7 +6,6 @@ import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.api.study.riot_api.R
-import com.api.study.riot_api.databinding.ActivityLolStatsSearchBinding
 import com.api.study.riot_api.databinding.ActivityValorantStatsSearchBinding
 import com.api.study.riot_api.viewModel.activity.LOLStatsSearchViewModel
 import com.api.study.riot_api.viewModel.activity.VALORANTStatsSearchViewModel
@@ -36,7 +35,7 @@ class VALORANTStatsSearchActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding.valorantStatsSearchActivity = viewModel
+        binding.valorantStatsSearch = viewModel
         binding.lifecycleOwner = this
     }
 
