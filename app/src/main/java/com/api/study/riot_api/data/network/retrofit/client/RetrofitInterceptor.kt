@@ -1,4 +1,4 @@
-package com.api.study.riot_api.data.network.retrofit.test
+package com.api.study.riot_api.data.network.retrofit.client
 
 import android.util.Log
 import okhttp3.Interceptor
