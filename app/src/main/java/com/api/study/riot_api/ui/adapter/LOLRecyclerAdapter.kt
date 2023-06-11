@@ -2,23 +2,29 @@ package com.api.study.riot_api.ui.adapter
 
 import android.content.Context
 import android.graphics.Color
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.api.study.riot_api.OnItemClickListener
 import com.api.study.riot_api.R
 import com.api.study.riot_api.data.model.MySharedPreferences
+import com.api.study.riot_api.data.network.retrofit.lol.response.user_matches_response.UserMatchesResponse
 import com.api.study.riot_api.data.network.riotapi.RiotAPI
 import com.api.study.riot_api.databinding.ItemRecyclerviewLolBinding
-import com.api.study.riot_api.ui.activity.LOLStatsSearchActivity
+import com.api.study.riot_api.ui.activity.LOLBaseActivity
 import com.api.study.riot_api.viewModel.activity.LOLStatsSearchViewModel
 
-class LOLRecyclerAdapter(var data: ArrayList<com.api.study.riot_api.data.network.retrofit.lol.response.user_matches_response.UserMatchesResponse>, val context: Context) :
+class LOLRecyclerAdapter(
+    var data: ArrayList<UserMatchesResponse>,
+    val context: Context,
+    private val clickListener: OnItemClickListener
+) :
     RecyclerView.Adapter<LOLRecyclerAdapter.MyViewHolder>() {
 
     private val riotAPI = RiotAPI()
     private val mainViewModel = LOLStatsSearchViewModel()
-
     class MyViewHolder(private val binding: ItemRecyclerviewLolBinding) :
         RecyclerView.ViewHolder(binding.root) {
         val championProfileIcon = binding.ChampionProfileIcon
@@ -37,22 +43,31 @@ class LOLRecyclerAdapter(var data: ArrayList<com.api.study.riot_api.data.network
         val championDeath = binding.D
         val championAssist = binding.A
         val laterTime = binding.laterTime
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding: ItemRecyclerviewLolBinding =
+        val itemRecyclerviewLolBinding: ItemRecyclerviewLolBinding =
             DataBindingUtil.inflate(inflater, R.layout.item_recyclerview_lol, parent, false)
-        return MyViewHolder(binding)
+        return MyViewHolder(itemRecyclerviewLolBinding)
     }
 
     override fun getItemCount(): Int = data.size
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val version = MySharedPreferences(LOLStatsSearchActivity.ApplicationContext()).version.toString()
+        val version =
+            MySharedPreferences(LOLBaseActivity.ApplicationContext()).lolVersion.toString()
+
+        holder.item.setOnClickListener {
+            clickListener.onItemClick(position)
+        }
 
         for (i in 0..9) {
-            if (data[position].info.participants[i].puuid == MySharedPreferences(LOLStatsSearchActivity.ApplicationContext()).puuid) {
+            if (data[position].info.participants[i].puuid == MySharedPreferences(
+                    LOLBaseActivity.ApplicationContext()
+                ).lolpuuid
+            ) {
                 when (data[position].info.participants[i].summoner1Id.toString()) {
                     "21" -> riotAPI.getImageChampionSpell(
                         holder.championSpellId1,
@@ -297,7 +312,8 @@ class LOLRecyclerAdapter(var data: ArrayList<com.api.study.riot_api.data.network
                 holder.championDeath.text = data[position].info.participants[i].deaths.toString()
                 holder.championAssist.text = data[position].info.participants[i].assists.toString()
 
-                holder.laterTime.text = mainViewModel.getTimeAfterGameOver(data[position].info.gameEndTimestamp)
+                holder.laterTime.text =
+                    mainViewModel.getTimeAfterGameOver(data[position].info.gameEndTimestamp)
 
 
                 if (data[position].info.participants[i].win && data[position].info.participants[i].champLevel < 3) {
@@ -312,8 +328,13 @@ class LOLRecyclerAdapter(var data: ArrayList<com.api.study.riot_api.data.network
                 }
             }
         }
-
-
     }
+
+    fun on(){
+        Log.d("상태","클릭")
+    }
+
+
+
 
 }

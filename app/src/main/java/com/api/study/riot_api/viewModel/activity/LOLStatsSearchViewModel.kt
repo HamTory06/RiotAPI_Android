@@ -9,7 +9,7 @@ import com.api.study.riot_api.data.network.retrofit.lol.LOLapi
 import com.api.study.riot_api.data.network.retrofit.client.ClientRetrofit
 import com.api.study.riot_api.data.network.retrofit.lol.response.user_matches_response.UserMatchesResponse
 import com.api.study.riot_api.data.network.retrofit.riot.response.RiotVersionsResponse
-import com.api.study.riot_api.ui.activity.LOLStatsSearchActivity
+import com.api.study.riot_api.ui.activity.LOLBaseActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -63,7 +63,7 @@ class LOLStatsSearchViewModel : ViewModel() {
         var data: RiotVersionsResponse
         CoroutineScope(Dispatchers.IO).async {
             data = ddragonGetInstance.get_lol_versions()
-            MySharedPreferences(LOLStatsSearchActivity.ApplicationContext()).lolVersion = data[0]
+            MySharedPreferences(LOLBaseActivity.ApplicationContext()).lolVersion = data[0]
         }
     }
 
@@ -80,8 +80,8 @@ class LOLStatsSearchViewModel : ViewModel() {
             }
 
             val puuid = userData.await().puuid
-            MySharedPreferences(LOLStatsSearchActivity.ApplicationContext()).lolpuuid = puuid
-            Log.d("상태",MySharedPreferences(LOLStatsSearchActivity.ApplicationContext()).lolpuuid.toString())
+            MySharedPreferences(LOLBaseActivity.ApplicationContext()).lolpuuid = puuid
+            Log.d("상태",MySharedPreferences(LOLBaseActivity.ApplicationContext()).lolpuuid.toString())
             val userMatchesId = async {
                 asiarRetrofitInstance.get_user_matchesId(
                     puuid, API_KEY, 0, 10
@@ -104,11 +104,6 @@ class LOLStatsSearchViewModel : ViewModel() {
             _recyclerView.postValue(data)
         }
     }
-
-    fun on(){
-        Log.d("상태","클릭")
-    }
-
 
     fun getTimeAfterGameOver(gameEndTimestamp: Long): String {
         val endDateTime =
