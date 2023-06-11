@@ -1,6 +1,7 @@
 package com.api.study.riot_api.ui.fragment
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -22,6 +23,13 @@ class MatchInformationFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         binding = FragmentLolMatchInformationBinding.inflate(inflater, container, false)
+        val bundle = arguments
+        if (bundle != null) {
+            // 데이터를 추출하여 변수에 할당
+            val value = bundle.getInt("position")
+            Log.d("상태",value.toString())
+            // 변수를 사용하여 작업 수행
+        }
         return binding.root
     }
 
