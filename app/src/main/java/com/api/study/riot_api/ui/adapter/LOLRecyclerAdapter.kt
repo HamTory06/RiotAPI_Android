@@ -59,8 +59,11 @@ class LOLRecyclerAdapter(
         val version =
             MySharedPreferences(LOLBaseActivity.ApplicationContext()).lolVersion.toString()
 
+        holder.championProfileIcon.setOnClickListener {
+            clickListener.onClickchampionProfileIcon(position)
+        }
         holder.item.setOnClickListener {
-            clickListener.onItemClick(position)
+            clickListener.onClickItem(position)
         }
 
         for (i in 0..9) {
@@ -315,7 +318,6 @@ class LOLRecyclerAdapter(
                 holder.laterTime.text =
                     mainViewModel.getTimeAfterGameOver(data[position].info.gameEndTimestamp)
 
-
                 if (data[position].info.participants[i].win && data[position].info.participants[i].champLevel < 3) {
                     //무승부
                     holder.item.setBackgroundColor(Color.rgb(247, 247, 249))
@@ -329,7 +331,6 @@ class LOLRecyclerAdapter(
             }
         }
     }
-
     fun on(){
         Log.d("상태","클릭")
     }
