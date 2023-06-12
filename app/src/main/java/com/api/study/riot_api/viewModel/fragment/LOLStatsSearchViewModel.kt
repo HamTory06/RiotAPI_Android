@@ -16,6 +16,7 @@ import com.api.study.riot_api.data.network.retrofit.riot.response.RiotUserPuuidR
 import com.api.study.riot_api.data.network.retrofit.riot.response.RiotVersionsResponse
 import com.api.study.riot_api.ui.activity.LOLBaseActivity
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
@@ -69,29 +70,33 @@ class LOLStatsSearchViewModel : ViewModel() {
         }
     }
 
-    private fun getPuuid(name: String){
-        var data: UserInformationResponse
-        CoroutineScope(Dispatchers.IO).async {
-            data = krRetrofitInstance.get_user_information_name(name, API_KEY)
-            MySharedPreferences(LOLBaseActivity.ApplicationContext()).lolpuuid = data.puuid
-        }
-    }
-
     fun setInputUserName(text: String) = viewModelScope.launch {
         CoroutineScope(Dispatchers.IO).async {
             getVersions()
-            getPuuid(text)
-            Log.d("상태",MySharedPreferences(LOLBaseActivity.ApplicationContext()).lolVersion.toString())
-            val data = ArrayList<UserMatchesResponse>()
+//            getPuuid(text)
+
+            val userInformationResponse = async {
+                krRetrofitInstance.get_user_information_name(text, API_KEY)
+            }
+
+            MySharedPreferences(LOLBaseActivity.ApplicationContext()).lolpuuid = userInformationResponse.await().puuid
+
+            Log.d(
+                "상태",
+                MySharedPreferences(LOLBaseActivity.ApplicationContext()).lolVersion.toString()
+            )
+
+            val userMatchesResponse = ArrayList<UserMatchesResponse>()
             _userName.postValue(text)
             val userMatchesList = mutableListOf<UserMatchesResponse>()
-            val puuid = MySharedPreferences(LOLBaseActivity.ApplicationContext()).lolpuuid
+            val puuId: String = MySharedPreferences(LOLBaseActivity.ApplicationContext()).lolpuuid!!
             Log.d(
-                "puuId", MySharedPreferences(LOLBaseActivity.ApplicationContext()).lolpuuid.toString()
+                "puuId",
+                MySharedPreferences(LOLBaseActivity.ApplicationContext()).lolpuuid.toString()
             )
             val userMatchesId = async {
                 asiarRetrofitInstance.get_user_matchesId(
-                    puuid?:"", API_KEY, 0, 10
+                    puuId, API_KEY, 0, 10
                 )
             }
             userMatchesList.clear()
@@ -102,15 +107,16 @@ class LOLStatsSearchViewModel : ViewModel() {
                             userMatchesId, API_KEY
                         )
                     }
-                    data.add(userMatches.await())
+                    userMatchesResponse.add(userMatches.await())
                 } catch (e: Exception) {
                     Log.d("ERROR", e.message.toString())
                 }
             }
-            _recyclerView.postValue(data)
+            _recyclerView.postValue(userMatchesResponse)
         }
     }
 
+    //lol game time
     fun getTimeAfterGameOver(gameEndTimestamp: Long): String {
         val endDateTime =
             LocalDateTime.ofInstant(Instant.ofEpochMilli(gameEndTimestamp), ZoneId.systemDefault())
