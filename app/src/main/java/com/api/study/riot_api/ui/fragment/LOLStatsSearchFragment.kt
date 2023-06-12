@@ -47,7 +47,13 @@ class LOLStatsSearchFragment : Fragment() {
                 it,
                 LOLBaseActivity.ApplicationContext(),
                 object : OnItemClickListener {
-                    override fun onItemClick(item: Int) {
+                    override fun onClickchampionProfileIcon(item: Int) {
+                        val bundle = Bundle()
+                        bundle.putInt("position",item)
+                        findNavController().navigate(R.id.action_LOLStatsSearchFragment_to_championInformationFragment,bundle)
+                    }
+
+                    override fun onClickItem(item: Int) {
                         val bundle = Bundle()
                         bundle.putInt("position",item)
                         findNavController().navigate(R.id.action_LOLStatsSearchFragment_to_matchInformationFragment,bundle)
