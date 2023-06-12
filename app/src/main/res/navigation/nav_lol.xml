@@ -10,28 +10,25 @@
         android:label="LOLStatsSearchFragment" >
         <action
             android:id="@+id/action_LOLStatsSearchFragment_to_matchInformationFragment"
-            app:popUpTo="@id/LOLStatsSearchFragment"
-            app:destination="@id/matchInformationFragment" />
+            app:destination="@id/matchInformationFragment"
+            app:popUpTo="@id/LOLStatsSearchFragment"/>
         <action
             android:id="@+id/action_LOLStatsSearchFragment_to_userInformationFragment"
-            app:popUpTo="@id/LOLStatsSearchFragment"
-            app:destination="@id/userInformationFragment" />
+            app:destination="@id/userInformationFragment"
+            app:popUpTo="@id/LOLStatsSearchFragment"/>
         <action
             android:id="@+id/action_LOLStatsSearchFragment_to_championInformationFragment"
-            app:destination="@id/championInformationFragment" />
+            app:destination="@id/championInformationFragment"
+            app:popUpTo="@id/LOLStatsSearchFragment"/>
     </fragment>
     <fragment
         android:id="@+id/matchInformationFragment"
         android:name="com.api.study.riot_api.ui.fragment.MatchInformationFragment"
-        android:label="MatchInformationFragment" >
-
-    </fragment>
+        android:label="MatchInformationFragment" />
     <fragment
         android:id="@+id/userInformationFragment"
         android:name="com.api.study.riot_api.ui.fragment.UserInformationFragment"
-        android:label="UserInformationFragment" >
-
-    </fragment>
+        android:label="UserInformationFragment" />
     <fragment
         android:id="@+id/championInformationFragment"
         android:name="com.api.study.riot_api.ui.fragment.ChampionInformationFragment"
