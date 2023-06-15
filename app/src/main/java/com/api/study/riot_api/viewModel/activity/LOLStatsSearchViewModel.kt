@@ -127,6 +127,8 @@ class LOLStatsSearchViewModel : ViewModel() {
             } else {
                 "${hours.toInt()}시간전"
             }
+        } else if(hours >= 12){
+            "${days.toInt()+1}일전"
         } else {
             "${days.toInt()}일전"
         }
