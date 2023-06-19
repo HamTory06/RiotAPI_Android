@@ -1,5 +1,6 @@
 package com.api.study.riot_api.data.network.retrofit.mainserver
 
+import com.api.study.riot_api.data.network.retrofit.mainserver.request.LoginRequest
 import com.api.study.riot_api.data.network.retrofit.mainserver.request.SignupRequest
 import com.api.study.riot_api.data.network.retrofit.mainserver.response.LoginResponse
 import com.api.study.riot_api.data.network.retrofit.mainserver.response.SignupResponse
@@ -10,14 +11,13 @@ import retrofit2.http.Query
 
 interface API {
 
-    @POST("/account/signup")
+    @POST("account/signup")
     fun postSignup(
         @Body body: SignupRequest
     ): Call<SignupResponse>
 
-    @POST("/account/login")
+    @POST("account/login")
     fun postLogin(
-        @Query("id") id: String,
-        @Query("password") password: String
+        @Body body: LoginRequest
     ): Call<LoginResponse>
 }
