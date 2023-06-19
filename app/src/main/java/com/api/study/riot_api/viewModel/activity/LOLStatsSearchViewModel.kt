@@ -23,7 +23,7 @@ import java.time.ZoneId
 class LOLStatsSearchViewModel : ViewModel() {
 
     companion object {
-        const val API_KEY = "RGAPI-f9035c09-8617-4247-92e1-023c40f5b83b"
+        const val API_KEY = "RGAPI-2d419dcd-91f1-41db-b40c-eb3946710b4f"
     }
 
     private var krRetrofitInstance: LOLapi =
@@ -62,7 +62,7 @@ class LOLStatsSearchViewModel : ViewModel() {
     private fun getVersions() {
         var data: RiotVersionsResponse
         CoroutineScope(Dispatchers.IO).async {
-            data = ddragonGetInstance.get_lol_versions()
+            data = ddragonGetInstance.getLolVersions()
             MySharedPreferences(LOLBaseActivity.ApplicationContext()).lolVersion = data[0]
         }
     }
@@ -74,7 +74,7 @@ class LOLStatsSearchViewModel : ViewModel() {
             _userName.postValue(text)
             val userMatchesList = mutableListOf<UserMatchesResponse>()
             val userData = async {
-                krRetrofitInstance.get_user_information_name(
+                krRetrofitInstance.getUserInformationName(
                     text, API_KEY
                 )
             }
@@ -83,7 +83,7 @@ class LOLStatsSearchViewModel : ViewModel() {
             MySharedPreferences(LOLBaseActivity.ApplicationContext()).lolpuuid = puuid
             Log.d("상태",MySharedPreferences(LOLBaseActivity.ApplicationContext()).lolpuuid.toString())
             val userMatchesId = async {
-                asiarRetrofitInstance.get_user_matchesId(
+                asiarRetrofitInstance.getUserMatchesId(
                     puuid, API_KEY, 0, 10
                 )
             }
@@ -91,7 +91,7 @@ class LOLStatsSearchViewModel : ViewModel() {
             for (userMatchesId in userMatchesId.await()) {
                 try {
                     val userMatches = async {
-                        asiarRetrofitInstance.get_user_matches(
+                        asiarRetrofitInstance.getUserMatches(
                             userMatchesId, API_KEY
                         )
                     }
