@@ -12,28 +12,28 @@ import retrofit2.http.Query
 interface LOLapi {
 
     @GET("/api/versions.json")
-    suspend fun get_lol_versions(): RiotVersionsResponse
+    suspend fun getLolVersions(): RiotVersionsResponse
 
     @GET("lol/summoner/v4/summoners/by-name/{username}")
-    suspend fun get_user_information_name(
+    suspend fun getUserInformationName(
         @Path(value = "username") name: String,
         @Query(value = "api_key") api_key: String
     ): UserInformationResponse
 
     @GET("lol/summoner/v4/summoners/by-account/{accountid}")
-    suspend fun get_user_information_accountid(
+    suspend fun getUserInformationAccountId(
         @Path(value = "accountid") accountid: String,
         @Query(value = "api_key") api_key: String
 
     ): UserInformationResponse
 
     @GET("lol/summoner/v4/summoners/by-puuid/{PUUID}")
-    suspend fun get_user_information_puuid(
+    suspend fun getUserInformationPuuId(
         @Path(value = "PUUID") puuid: String,
         @Query(value = "api_key") api_key: String
     ): UserInformationResponse
     @GET("/lol/match/v5/matches/by-puuid/{PUUID}/ids")
-    suspend fun get_user_matchesId(
+    suspend fun getUserMatchesId(
         @Path(value = "PUUID") puuid: String,
         @Query(value = "api_key") api_key: String,
         @Query(value = "start") start: Int,
@@ -45,7 +45,7 @@ interface LOLapi {
     ): UserMatchesIdResponse
 
     @GET("/lol/match/v5/matches/{matchId}")
-    suspend fun get_user_matches(
+    suspend fun getUserMatches(
         @Path(value = "matchId") matchId: String,
         @Query(value = "api_key") apt_key: String
     ): UserMatchesResponse
