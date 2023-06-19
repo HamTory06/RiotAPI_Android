@@ -4,19 +4,15 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.navigation.fragment.findNavController
-import com.api.study.riot_api.R
 import com.api.study.riot_api.data.model.MySharedPreferences
 import com.api.study.riot_api.data.network.retrofit.client.ClientRetrofit
 import com.api.study.riot_api.data.network.retrofit.lol.LOLapi
 import com.api.study.riot_api.data.network.retrofit.lol.response.UserInformationResponse
 import com.api.study.riot_api.data.network.retrofit.lol.response.UserMatchesIdResponse
 import com.api.study.riot_api.data.network.retrofit.lol.response.user_matches_response.UserMatchesResponse
-import com.api.study.riot_api.data.network.retrofit.riot.response.RiotUserPuuidResponse
 import com.api.study.riot_api.data.network.retrofit.riot.response.RiotVersionsResponse
 import com.api.study.riot_api.ui.activity.LOLBaseActivity
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
@@ -65,7 +61,7 @@ class LOLStatsSearchViewModel : ViewModel() {
     private fun getVersions() {
         var data: RiotVersionsResponse
         CoroutineScope(Dispatchers.IO).async {
-            data = ddragonGetInstance.get_lol_versions()
+            data = ddragonGetInstance.getLolVersions()
             MySharedPreferences(LOLBaseActivity.ApplicationContext()).lolVersion = data[0]
         }
     }
@@ -76,7 +72,7 @@ class LOLStatsSearchViewModel : ViewModel() {
 //            getPuuid(text)
 
             val userInformationResponse = async {
-                krRetrofitInstance.get_user_information_name(text, API_KEY)
+                krRetrofitInstance.getUserInformationName(text, API_KEY)
             }
 
             MySharedPreferences(LOLBaseActivity.ApplicationContext()).lolpuuid = userInformationResponse.await().puuid
@@ -95,7 +91,7 @@ class LOLStatsSearchViewModel : ViewModel() {
                 MySharedPreferences(LOLBaseActivity.ApplicationContext()).lolpuuid.toString()
             )
             val userMatchesId = async {
-                asiarRetrofitInstance.get_user_matchesId(
+                asiarRetrofitInstance.getUserMatchesId(
                     puuId, API_KEY, 0, 10
                 )
             }
@@ -103,7 +99,7 @@ class LOLStatsSearchViewModel : ViewModel() {
             for (userMatchesId in userMatchesId.await()) {
                 try {
                     val userMatches = async {
-                        asiarRetrofitInstance.get_user_matches(
+                        asiarRetrofitInstance.getUserMatches(
                             userMatchesId, API_KEY
                         )
                     }
