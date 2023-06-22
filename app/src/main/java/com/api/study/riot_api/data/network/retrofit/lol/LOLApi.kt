@@ -9,7 +9,7 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 
-interface LOLapi {
+interface LOLApi {
 
     @GET("/api/versions.json")
     suspend fun getLolVersions(): RiotVersionsResponse
@@ -24,7 +24,6 @@ interface LOLapi {
     suspend fun getUserInformationAccountId(
         @Path(value = "accountid") accountid: String,
         @Query(value = "api_key") api_key: String
-
     ): UserInformationResponse
 
     @GET("lol/summoner/v4/summoners/by-puuid/{PUUID}")

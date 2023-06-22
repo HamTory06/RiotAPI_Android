@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.api.study.riot_api.data.model.MySharedPreferences
 import com.api.study.riot_api.data.network.retrofit.client.ClientRetrofit
-import com.api.study.riot_api.data.network.retrofit.lol.LOLapi
+import com.api.study.riot_api.data.network.retrofit.lol.LOLApi
 import com.api.study.riot_api.data.network.retrofit.lol.response.UserInformationResponse
 import com.api.study.riot_api.data.network.retrofit.lol.response.UserMatchesIdResponse
 import com.api.study.riot_api.data.network.retrofit.lol.response.user_matches_response.UserMatchesResponse
@@ -27,12 +27,12 @@ class LOLStatsSearchViewModel : ViewModel() {
         const val API_KEY = "RGAPI-f9035c09-8617-4247-92e1-023c40f5b83b"
     }
 
-    private var krRetrofitInstance: LOLapi =
-        ClientRetrofit.krGetInstance().create(LOLapi::class.java)
-    private var asiarRetrofitInstance: LOLapi =
-        ClientRetrofit.AsiarGetInstance().create(LOLapi::class.java)
-    private var ddragonGetInstance: LOLapi =
-        ClientRetrofit.ddragonGetInstance().create(LOLapi::class.java)
+    private var krRetrofitInstance: LOLApi =
+        ClientRetrofit.krGetInstance().create(LOLApi::class.java)
+    private var asiarRetrofitInstance: LOLApi =
+        ClientRetrofit.AsiarGetInstance().create(LOLApi::class.java)
+    private var ddragonGetInstance: LOLApi =
+        ClientRetrofit.ddragonGetInstance().create(LOLApi::class.java)
 
 
     private val viewModelScope = CoroutineScope(Dispatchers.Main)

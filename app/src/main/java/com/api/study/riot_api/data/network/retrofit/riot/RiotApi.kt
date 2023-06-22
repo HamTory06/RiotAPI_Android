@@ -1,7 +1,6 @@
 package com.api.study.riot_api.data.network.retrofit.riot
 
-import com.api.study.riot_api.data.network.retrofit.riot.response.RiotUserPuuidResponse
-import com.api.study.riot_api.data.network.retrofit.riot.response.RiotVersionsResponse
+import com.api.study.riot_api.data.network.retrofit.riot.response.RiotUserPuuIdResponse
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -10,18 +9,17 @@ interface RiotApi {
 
 
     @GET("/riot/account/v1/accounts/by-riot-id/{gameName}/{tagLine}")
-    suspend fun get_user_puuid(
+    suspend fun getUserPuuId(
         @Path(value = "gameName") gameName: String,
         @Path(value = "tagLine") tagLine: String,
         @Query(value = "api_key") api_key: String
-
-    ): RiotUserPuuidResponse
+    ): RiotUserPuuIdResponse
 
     @GET("/riot/account/v1/accounts/by-puuid/{puuid}")
-    suspend fun get_user_puuid(
+    suspend fun getUserPuuId(
         @Path(value = "puuid") puuid: String,
         @Query(value = "api_key") api_key: String
-    ): RiotUserPuuidResponse
+    ): RiotUserPuuIdResponse
 
 
 }

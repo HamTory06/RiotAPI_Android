@@ -1,7 +1,7 @@
 package com.api.study.riot_api.data.network.retrofit.riot.response
 
-data class RiotUserPuuidResponse(
+data class RiotUserPuuIdResponse(
     val gameName: String,
-    val puuid: String,
+    val puuId: String,
     val tagLine: String
 )

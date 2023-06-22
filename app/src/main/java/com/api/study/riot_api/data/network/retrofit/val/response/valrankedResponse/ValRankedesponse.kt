@@ -1,7 +1,7 @@
 package com.api.study.riot_api.data.network.retrofit.`val`.response.valrankedResponse
 
 
-data class valRankedesponse(
+data class ValRankedesponse(
     val actId: String,
     val immortalStartingIndex: Int,
     val immortalStartingPage: Int,

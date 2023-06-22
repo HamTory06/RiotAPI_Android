@@ -1,15 +1,17 @@
 package com.api.study.riot_api.ui.activity
 
 import android.content.Context
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.api.study.riot_api.R
-import com.api.study.riot_api.databinding.ActivityLoginBinding
 import com.api.study.riot_api.databinding.ActivityLolbaseBinding
 import com.api.study.riot_api.viewModel.activity.LOLBaseViewModel
-import com.api.study.riot_api.viewModel.activity.LoginViewModel
+import com.microsoft.appcenter.AppCenter
+import com.microsoft.appcenter.analytics.Analytics
+import com.microsoft.appcenter.crashes.Crashes
+
 
 class LOLBaseActivity : AppCompatActivity() {
 
@@ -39,5 +41,9 @@ class LOLBaseActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding.base = viewModel
         binding.lifecycleOwner = this
+        AppCenter.start(
+            application, "3158b527-de92-4509-afcf-620166a57a89",
+            Analytics::class.java, Crashes::class.java
+        )
     }
 }

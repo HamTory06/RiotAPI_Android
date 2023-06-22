@@ -27,7 +27,7 @@ class VALORANTStatsSearchViewModel: ViewModel() {
     fun getCountry(){
         var data: ValStatusResponse
         CoroutineScope(Dispatchers.IO).async{
-            data = krRetrofitInstance.get_val_status(API_KEY)
+            data = krRetrofitInstance.getValStatus(API_KEY)
             App.prefs.locale = data.id
         }
     }
@@ -37,10 +37,10 @@ class VALORANTStatsSearchViewModel: ViewModel() {
         CoroutineScope(Dispatchers.IO).async {
             val gameName = text.split("#")[0]
             val tagLine = text.split("#")[1]
-            App.prefs.valpuuid = asiarRetrofitInstance.get_user_puuid(gameName, tagLine, API_KEY).puuid
+            App.prefs.valpuuid = asiarRetrofitInstance.getUserPuuId(gameName, tagLine, API_KEY).puuId
 
             val data = async {
-                krRetrofitInstance.get_matchId(App.prefs.valpuuid.toString(), API_KEY)
+                krRetrofitInstance.getMatchid(App.prefs.valpuuid.toString(), API_KEY)
             }
 
             Log.d("상태",data.await().toString())
