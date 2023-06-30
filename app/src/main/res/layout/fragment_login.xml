@@ -1,18 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.fragment.account.LoginFragment">
+<layout>
+    <data>
+        <variable
+            name="Login"
+            type="com.api.study.riot_api.viewModel.fragment.account.LoginViewModel" />
+    </data>
 
-    <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/login_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/background_account_textview"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.fragment.account.LoginFragment">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/pretendard_bold"
+            android:layout_marginBottom="5dp"
+            android:text="아이디"
+            android:textColor="#FF636363"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toTopOf="@+id/appCompatEditText"
+            app:layout_constraintStart_toStartOf="@+id/appCompatEditText" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/appCompatEditText"
+            android:layout_width="280dp"
+            android:layout_height="40dp"
+            android:background="@drawable/background_edittext"
+            android:fontFamily="@font/pretendard_black"
+            android:hint="아이디를 입력해주세요"
+            android:paddingStart="15dp"
+            android:textColor="#636363"
+            android:textSize="12sp"
+            android:layout_marginBottom="20dp"
+            app:layout_constraintBottom_toTopOf="@+id/appCompatTextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/appCompatTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/pretendard_bold"
+            android:text="비밀번호"
+            android:layout_marginBottom="5dp"
+            android:textColor="#FF636363"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toTopOf="@+id/appCompatEditText2"
+            app:layout_constraintStart_toStartOf="@+id/appCompatEditText2" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/appCompatEditText2"
+            android:layout_width="280dp"
+            android:layout_height="40dp"
+            android:background="@drawable/background_edittext"
+            android:fontFamily="@font/pretendard_black"
+            android:hint="비밀번호를 입력해주세요"
+            android:paddingStart="15dp"
+            android:textColor="#636363"
+            android:textSize="12sp"
+            android:layout_marginBottom="90dp"
+            app:layout_constraintBottom_toTopOf="@+id/login_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/login_button"
+            android:layout_width="280dp"
+            android:layout_height="50dp"
+            android:onClick="@{() -> Login.onClickLoginButton()}"
+            android:background="@drawable/background_button"
+            android:fontFamily="@font/pretendard_bold"
+            android:text="로그인"
+            android:textColor="#636363"
+            android:textSize="20sp"
+            android:layout_marginBottom="25dp"
+            app:layout_constraintBottom_toTopOf="@+id/Signuptext"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/Signuptext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="160dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/pretendard_black"
+                android:text="계정이 없으신가요? "
+                android:textColor="#FFBFBFBF"
+                android:textSize="12sp" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/pretendard_black"
+                android:text="회원가입"
+                android:textColor="#FF454545"
+                android:textSize="12sp" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
