@@ -7,11 +7,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.api.study.riot_api.R
-import com.api.study.riot_api.data.model.dto.LoginRequestDto
+import com.api.study.riot_api.data.model.dto.loginDto.Request.LoginRequestDto
+import com.api.study.riot_api.data.model.dto.loginDto.Response.LoginResponseDto
 import com.api.study.riot_api.data.network.retrofit.client.ClientRetrofit
 import com.api.study.riot_api.databinding.FragmentLoginBinding
+import com.api.study.riot_api.ui.activity.AccountActivity
+import com.api.study.riot_api.viewModel.activity.AccountViewModel
 import com.api.study.riot_api.viewModel.fragment.account.LoginViewModel
 import retrofit2.Call
 import retrofit2.Callback
@@ -23,29 +29,48 @@ class LoginFragment : Fragment() {
     private val loginViewModel: LoginViewModel by lazy { ViewModelProvider(this)[LoginViewModel::class.java] }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_login, container, false)
         binding.login = loginViewModel // LoginViewModel을 바인딩
         binding.lifecycleOwner = this // lifecycleOwner 설정
+
+        loginViewModel.loginButtonEvent.observe(viewLifecycleOwner) {
+            login(binding.idTextview.text.toString(), binding.passwordTextview.text.toString())
+        }
+
+        loginViewModel.signupButtonStatus.observe(viewLifecycleOwner, Observer { clicked ->
+            if (clicked) {
+                val navController = requireActivity().findNavController(R.id.account_screen)
+                Log.d("클릭", "회원가입")
+                navController.navigate(R.id.action_loginFragment_to_signupFragment)
+            }
+        })
+
         return binding.root
     }
 
-    private fun login(id: String, password: String){
-        ClientRetrofit.api.login(LoginRequestDto(id, password)).enqueue(object :
-            Callback<LoginRequestDto> {
-            override fun onResponse(call: Call<LoginRequestDto>, response: Response<LoginRequestDto>) {
-                if(response.isSuccessful){
-                    Log.d("인터넷",response.body().toString())
+    private fun login(id: String, password: String) {
+        ClientRetrofit.api.login(
+            LoginRequestDto(
+                id, password
+            )
+        ).enqueue(object : Callback<LoginResponseDto> {
+            override fun onResponse(
+                call: Call<LoginResponseDto>, response: Response<LoginResponseDto>
+            ) {
+                if (response.isSuccessful) {
+                    Log.d("인터넷", response.body().toString())
                 } else {
-                    Log.d("인터넷",response.code().toString())
+                    Log.d("인터넷", response.code().toString())
+                    Log.d("인터넷", "id: $id, password: $password")
                 }
             }
 
-            override fun onFailure(call: Call<LoginRequestDto>, t: Throwable) {
-                Log.d("ERROR",t.message.toString())
+            override fun onFailure(call: Call<LoginResponseDto>, t: Throwable) {
+                Log.d("ERROR", t.message.toString())
             }
         })
     }
+
 }

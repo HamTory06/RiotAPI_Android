@@ -10,28 +10,12 @@
         android:label="fragment_signup"
         tools:layout="@layout/fragment_signup" />
     <fragment
-        android:id="@+id/findPasswordFragment"
-        android:name="com.api.study.riot_api.ui.fragment.account.FindPasswordFragment"
-        android:label="fragment_find_password"
-        tools:layout="@layout/fragment_find_password" />
-    <fragment
-        android:id="@+id/findIdFragment"
-        android:name="com.api.study.riot_api.ui.fragment.account.FindIdFragment"
-        android:label="fragment_find_id"
-        tools:layout="@layout/fragment_find_id" />
-    <fragment
         android:id="@+id/loginFragment"
         android:name="com.api.study.riot_api.ui.fragment.account.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
-            android:id="@+id/action_loginFragment3_to_signupFragment"
+            android:id="@+id/action_loginFragment_to_signupFragment"
             app:destination="@id/signupFragment" />
-        <action
-            android:id="@+id/action_loginFragment3_to_findPasswordFragment"
-            app:destination="@id/findPasswordFragment" />
-        <action
-            android:id="@+id/action_loginFragment3_to_findIdFragment"
-            app:destination="@id/findIdFragment" />
     </fragment>
 </navigation>
