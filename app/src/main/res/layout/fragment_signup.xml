@@ -1,21 +1,146 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
         <variable
-            name="Signup"
+            name="signup"
             type="com.api.study.riot_api.viewModel.fragment.account.SignupViewModel" />
     </data>
 
-    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.fragment.account.SignupFragment">
 
 
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/pretendard_black"
+            android:text="아이디"
+            android:textColor="#FF727272"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toTopOf="@+id/id"
+            app:layout_constraintStart_toStartOf="@+id/id" />
 
-    </FrameLayout>
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginBottom="30dp"
+            app:layout_constraintBottom_toTopOf="@+id/password_textview1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/id_edittext"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/pretendard_bold"
+                android:hint="아이디"
+                android:textSize="12sp" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/id_same_check_button"
+                android:layout_width="70dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="5dp"
+                android:background="@drawable/background_button"
+                android:fontFamily="@font/pretendard_medium"
+                android:text="중복확인"
+                android:textSize="12sp" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+
+
+
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/password_textview1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/pretendard_black"
+            android:text="비밀번호"
+            android:textColor="#FF727272"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toTopOf="@+id/password1"
+            app:layout_constraintStart_toStartOf="@+id/password1" />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/password1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginBottom="30dp"
+            app:layout_constraintBottom_toTopOf="@+id/password_textview2">
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/password_edittext1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/pretendard_bold"
+                android:hint="비밀번호"
+                android:textSize="12sp" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/password_textview2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/pretendard_black"
+            android:text="비밀번호확인"
+            android:textColor="#FF727272"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toTopOf="@+id/password2"
+            app:layout_constraintStart_toStartOf="@+id/password2" />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/password2"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginBottom="200dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/signup_button">
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/password_edittext2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/pretendard_bold"
+                android:hint="비밀번호확인"
+                android:textSize="12sp" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/signup_button"
+            android:layout_width="280dp"
+            android:layout_height="50dp"
+            android:background="@drawable/background_button"
+            android:fontFamily="@font/pretendard_bold"
+            android:text="회원가입"
+            android:layout_marginBottom="50dp"
+            android:textColor="#636363"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
 
