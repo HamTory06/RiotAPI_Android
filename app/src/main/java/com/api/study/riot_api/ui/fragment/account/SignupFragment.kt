@@ -24,7 +24,6 @@ class SignupFragment : Fragment() {
     private val signupViewModel: SignupViewModel by lazy { ViewModelProvider(this)[SignupViewModel::class.java] }
 
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -34,57 +33,95 @@ class SignupFragment : Fragment() {
         binding.lifecycleOwner = this // lifecycleOwner 설정
 
         signupViewModel.sameIdCheckButtonStatus.observe(viewLifecycleOwner, Observer {
-            Log.d("클릭","클릭")
-
-            click(binding.idEdittext.text.toString())
+            if (binding.idEdittext.text.toString() != "") {
+                click(binding.idEdittext.text.toString())
+            } else {
+                signupViewModel.idSameCheckStatus(false)
+                signupViewModel.idErrorTextView("아이디를 입력해주세요")
+            }
         })
 
         signupViewModel.signupButtonStatus.observe(viewLifecycleOwner, Observer {
-            signup(id = binding.idEdittext.text.toString(), name = binding.nameEdittext1.text.toString(), password = binding.passwordEdittext1.text.toString())
+            if (binding.passwordEdittext1.text.toString() == binding.passwordEdittext2.text.toString()) {
+                signupViewModel.passwordSameCheckStatus(true)
+                signupViewModel.passwordErrorTextView("")
+                if (signupViewModel.idSameCheckStatus.value == true && signupViewModel.passwordSameCheckStatus.value == true) {
+                    if(binding.nameEdittext.text.isNullOrEmpty()){
+                        signupViewModel.nameNullErrorTextView("이름을 입력해주세요.")
+                    } else {
+                        signup(
+                            id = binding.idEdittext.text.toString(),
+                            name = binding.nameEdittext.text.toString(),
+                            password = binding.passwordEdittext1.text.toString()
+                        )
+                    }
+                } else {
+
+                    if (signupViewModel.idSameCheckStatus.value == true && signupViewModel.passwordSameCheckStatus.value != true) {
+                        signupViewModel.passwordErrorTextView("비밀번호가 중복인지 확인 해주세요")
+                    } else if (signupViewModel.idSameCheckStatus.value != true && signupViewModel.passwordSameCheckStatus.value == true) {
+                        signupViewModel.idErrorTextView("아이디 중복채크를 해주세요.")
+                    } else {
+                        signupViewModel.passwordErrorTextView("비밀번호가 중복인지 확인 해주세요")
+                        signupViewModel.idErrorTextView("아이디 중복채크를 해주세요.")
+                    }
+                }
+            } else {
+                signupViewModel.passwordErrorTextView("비밀번호가 중복인지 확인 해주세요")
+                signupViewModel.passwordSameCheckStatus(false)
+            }
         })
         return binding.root
     }
 
-    private fun signup(id: String, name: String, password: String){
-        ClientRetrofit.api.signup(SignupRequestDto(id = id, name = name, password = password)).enqueue(object : Callback<SignupRequestDto> {
-            override fun onResponse(
-                call: Call<SignupRequestDto>,
-                response: Response<SignupRequestDto>
-            ) {
-                if(response.isSuccessful){
-                    Log.d("애러",response.code().toString())
 
-                } else {
-                    Log.d("애러",response.code().toString())
-                    Log.d("애러","password: $password, id: $id, name: $name")
+    private fun signup(id: String, name: String, password: String) {
+        ClientRetrofit.api.signup(SignupRequestDto(id = id, name = name, password = password))
+            .enqueue(object : Callback<SignupRequestDto> {
+                override fun onResponse(
+                    call: Call<SignupRequestDto>,
+                    response: Response<SignupRequestDto>
+                ) {
+                    if (response.isSuccessful) {
+                        Log.d("애러", response.code().toString())
+                    } else {
+                        Log.d("애러", response.code().toString())
+                        Log.d("애러", "password: $password, id: $id, name: $name")
+                    }
                 }
-            }
 
-            override fun onFailure(call: Call<SignupRequestDto>, t: Throwable) {
-                Log.d("애러","${t.message}")
-            }
-
-        })
+                override fun onFailure(call: Call<SignupRequestDto>, t: Throwable) {
+                    Log.d("애러", "${t.message}")
+                }
+            })
     }
 
-    private fun click(id: String){
-        ClientRetrofit.api.checkSameId(id).enqueue(object : Callback<CheckSameIdDto>{
+
+    private fun click(id: String) {
+        ClientRetrofit.api.checkSameId(id).enqueue(object : Callback<CheckSameIdDto> {
             override fun onResponse(
                 call: Call<CheckSameIdDto>,
                 response: Response<CheckSameIdDto>
             ) {
-                if(response.isSuccessful){
-                    Log.d("성공",response.body().toString())
-                    if(response.body()?.sameId!!){
-                        //TODO(true면 id edittext background 빨간색,글씨도 빨간색으로 변경하고 id edittext 밑에 "이미 존재하는 아이디 입니다" textview로 보여주기)
+                if (response.isSuccessful) {
+                    if (response.body()?.sameId != false) {
+                        Log.d("아이디 중복 채크",response.body()?.sameId.toString())
+                        signupViewModel.idSameCheckStatus(false)
+                        signupViewModel.idErrorTextView("이미 존재하는 아이디입니다")
+                    } else {
+                        Log.d("아이디 중복 채크",response.body()?.sameId.toString())
+                        signupViewModel.idSameCheckStatus(true)
+                        signupViewModel.idErrorTextView("")
                     }
-                } else{
-                    Log.d("실패",response.code().toString())
+                } else {
+                    signupViewModel.idSameCheckStatus(false)
+                    signupViewModel.idErrorTextView("이미 존재하는 아이디입니다")
+                    Log.d("실패", response.code().toString())
                 }
             }
 
             override fun onFailure(call: Call<CheckSameIdDto>, t: Throwable) {
-
+                Log.d("애러",t.message.toString())
             }
 
         })
