@@ -58,6 +58,7 @@
             android:background="@drawable/background_edittext"
             android:fontFamily="@font/pretendard_black"
             android:hint="비밀번호를 입력해주세요"
+            android:inputType="textPassword"
             android:paddingStart="15dp"
             android:textColor="#636363"
             android:textSize="12sp"

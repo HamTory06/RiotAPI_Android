@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.api.study.riot_api.R
 import com.api.study.riot_api.databinding.ActivityAccountBinding
 import com.api.study.riot_api.viewModel.activity.AccountViewModel
+import com.api.study.riot_api.viewModel.fragment.account.LoginViewModel
 
 class AccountActivity : AppCompatActivity() {
 
@@ -29,12 +30,14 @@ class AccountActivity : AppCompatActivity() {
             R.layout.activity_account
         )
     }
-    private val viewModel: AccountViewModel by lazy { ViewModelProvider(this)[AccountViewModel::class.java] }
+    private val accountViewModel: AccountViewModel by lazy { ViewModelProvider(this)[AccountViewModel::class.java] }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding.account = viewModel
+        binding.account = accountViewModel
         binding.lifecycleOwner = this
+
+
 
     }
 }

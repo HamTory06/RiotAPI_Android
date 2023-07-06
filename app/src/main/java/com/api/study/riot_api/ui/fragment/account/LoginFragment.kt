@@ -1,5 +1,6 @@
 package com.api.study.riot_api.ui.fragment.account
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,14 +11,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import com.api.study.riot_api.R
 import com.api.study.riot_api.data.model.dto.loginDto.Request.LoginRequestDto
 import com.api.study.riot_api.data.model.dto.loginDto.Response.LoginResponseDto
 import com.api.study.riot_api.data.network.retrofit.client.ClientRetrofit
 import com.api.study.riot_api.databinding.FragmentLoginBinding
-import com.api.study.riot_api.ui.activity.AccountActivity
-import com.api.study.riot_api.viewModel.activity.AccountViewModel
 import com.api.study.riot_api.viewModel.fragment.account.LoginViewModel
 import retrofit2.Call
 import retrofit2.Callback
@@ -42,8 +40,7 @@ class LoginFragment : Fragment() {
         loginViewModel.signupButtonStatus.observe(viewLifecycleOwner, Observer { clicked ->
             if (clicked) {
                 val navController = requireActivity().findNavController(R.id.account_screen)
-                Log.d("클릭", "회원가입")
-                navController.navigate(R.id.action_loginFragment_to_signupFragment)
+                navController.navigate(R.id.action_signupFragment_to_loginFragment)
             }
         })
 
@@ -60,7 +57,8 @@ class LoginFragment : Fragment() {
                 call: Call<LoginResponseDto>, response: Response<LoginResponseDto>
             ) {
                 if (response.isSuccessful) {
-                    Log.d("인터넷", response.body().toString())
+//                    val intent: Intent = Intent(context, LOLBaseActivity::class.java)
+//                    startActivity(intent)
                 } else {
                     Log.d("인터넷", response.code().toString())
                     Log.d("인터넷", "id: $id, password: $password")

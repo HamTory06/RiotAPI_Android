@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import com.api.study.riot_api.R
 import com.api.study.riot_api.data.model.dto.CheckSameIdDto
 import com.api.study.riot_api.data.model.dto.signupDto.request.SignupRequestDto
@@ -49,6 +50,7 @@ class SignupFragment : Fragment() {
                     if(binding.nameEdittext.text.isNullOrEmpty()){
                         signupViewModel.nameNullErrorTextView("이름을 입력해주세요.")
                     } else {
+                        Log.d("상태","성공")
                         signup(
                             id = binding.idEdittext.text.toString(),
                             name = binding.nameEdittext.text.toString(),
@@ -83,6 +85,8 @@ class SignupFragment : Fragment() {
                     response: Response<SignupRequestDto>
                 ) {
                     if (response.isSuccessful) {
+                        val navController = requireActivity().findNavController(R.id.account_screen)
+                        navController.navigate(R.id.action_signupFragment_to_loginFragment)
                         Log.d("애러", response.code().toString())
                     } else {
                         Log.d("애러", response.code().toString())

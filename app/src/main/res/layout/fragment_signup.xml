@@ -20,14 +20,58 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/pretendard_black"
+            android:text="이름"
+            android:textColor="#FF727272"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toTopOf="@+id/name"
+            app:layout_constraintStart_toStartOf="@+id/name" />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginBottom="30dp"
+            app:layout_constraintBottom_toTopOf="@+id/id"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/name_edittext"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/pretendard_bold"
+                android:hint="이름"
+                android:textSize="12sp" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{signup.nameEditTextErrorTextView}"
+            android:textColor="#F00"
+            android:textSize="10sp"
+            app:layout_constraintStart_toStartOf="@+id/name"
+            app:layout_constraintTop_toBottomOf="@+id/name" />
+
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/pretendard_black"
             android:text="아이디"
             android:textColor="#FF727272"
             android:textSize="15sp"
-            app:layout_constraintBottom_toTopOf="@+id/id"
-            app:layout_constraintStart_toStartOf="@+id/id" />
+            app:layout_constraintBottom_toTopOf="@+id/idLayout"
+            app:layout_constraintStart_toStartOf="@+id/idLayout" />
 
         <androidx.appcompat.widget.LinearLayoutCompat
-            android:id="@+id/id"
+            android:id="@+id/idLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
@@ -53,12 +97,20 @@
                 android:layout_marginStart="5dp"
                 android:background="@drawable/background_button"
                 android:fontFamily="@font/pretendard_medium"
+                android:onClick="@{() -> signup.onClickSameIdCheckButton()}"
                 android:text="중복확인"
                 android:textSize="12sp" />
         </androidx.appcompat.widget.LinearLayoutCompat>
 
-
-
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{signup.idEditTextErrorTextView}"
+            android:textColor="#F00"
+            android:textSize="10sp"
+            app:layout_constraintStart_toStartOf="@+id/id"
+            app:layout_constraintTop_toBottomOf="@+id/idLayout" />
 
 
 
@@ -88,10 +140,19 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:inputType="textPassword"
                 android:fontFamily="@font/pretendard_bold"
                 android:hint="비밀번호"
                 android:textSize="12sp" />
         </androidx.appcompat.widget.LinearLayoutCompat>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#F00"
+            android:textSize="10sp"
+            android:text="@{signup.passwordEditTextErrorTextView}"
+            app:layout_constraintStart_toStartOf="@+id/password1"
+            app:layout_constraintTop_toBottomOf="@+id/password1" />
 
 
 
@@ -120,6 +181,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:inputType="textPassword"
                 android:fontFamily="@font/pretendard_bold"
                 android:hint="비밀번호확인"
                 android:textSize="12sp" />
@@ -137,6 +199,7 @@
             android:layout_marginBottom="50dp"
             android:textColor="#636363"
             android:textSize="20sp"
+            android:onClick="@{() -> signup.onClickSignupButton()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

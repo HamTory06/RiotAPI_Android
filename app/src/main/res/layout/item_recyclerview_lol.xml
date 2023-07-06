@@ -3,15 +3,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <data>
-        <variable
-            name="RecyclerView"
-            type="com.api.study.riot_api.ui.adapter.LOLRecyclerAdapter" />
-        <variable
-            name="LOLRecyclerAdatper"
-            type="com.api.study.riot_api.ui.adapter.LOLRecyclerAdapter" />
-    </data>
-
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/item"
@@ -166,8 +157,6 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_margin="1dp"
-                android:onClick="@{() -> LOLRecyclerAdatper.on()}"
-
                 android:background="@drawable/champion_item_background"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/Champion_spell_item5"
