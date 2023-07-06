@@ -16,6 +16,8 @@ import com.api.study.riot_api.data.model.dto.loginDto.Request.LoginRequestDto
 import com.api.study.riot_api.data.model.dto.loginDto.Response.LoginResponseDto
 import com.api.study.riot_api.data.network.retrofit.client.ClientRetrofit
 import com.api.study.riot_api.databinding.FragmentLoginBinding
+import com.api.study.riot_api.ui.activity.MainActivity
+import com.api.study.riot_api.util.PasswordUtils
 import com.api.study.riot_api.viewModel.fragment.account.LoginViewModel
 import retrofit2.Call
 import retrofit2.Callback
@@ -34,13 +36,25 @@ class LoginFragment : Fragment() {
         binding.lifecycleOwner = this // lifecycleOwner 설정
 
         loginViewModel.loginButtonEvent.observe(viewLifecycleOwner) {
-            login(binding.idTextview.text.toString(), binding.passwordTextview.text.toString())
+            if(PasswordUtils.isPasswordValid(binding.passwordTextview.text.toString()) && binding.idTextview.text.toString()
+                    .isNotEmpty()){
+                login(binding.idTextview.text.toString(), binding.passwordTextview.text.toString())
+            } else {
+                if(!PasswordUtils.isPasswordValid(binding.passwordTextview.text.toString()) && binding.idTextview.text.toString().isEmpty()){
+                    //TODO(id가 비었을때 password는 되어있고)
+                } else if(PasswordUtils.isPasswordValid(binding.passwordTextview.text.toString()) && binding.idTextview.text.toString().isNotEmpty()){
+                    //TODO(id는 적혀 있고 password는 패턴에 맞지 않거나 비어있을때)
+                } else {
+                    //TODO(id도 비어있고 password도 패턴에 일치하지 않으면)
+                }
+            }
+
         }
 
         loginViewModel.signupButtonStatus.observe(viewLifecycleOwner, Observer { clicked ->
             if (clicked) {
                 val navController = requireActivity().findNavController(R.id.account_screen)
-                navController.navigate(R.id.action_signupFragment_to_loginFragment)
+                navController.navigate(R.id.action_loginFragment_to_signupFragment)
             }
         })
 
@@ -57,11 +71,9 @@ class LoginFragment : Fragment() {
                 call: Call<LoginResponseDto>, response: Response<LoginResponseDto>
             ) {
                 if (response.isSuccessful) {
-//                    val intent: Intent = Intent(context, LOLBaseActivity::class.java)
-//                    startActivity(intent)
-                } else {
-                    Log.d("인터넷", response.code().toString())
-                    Log.d("인터넷", "id: $id, password: $password")
+                    val intent = Intent(context, MainActivity::class.java)
+                    startActivity(intent)
+                    activity?.finish()
                 }
             }
 
