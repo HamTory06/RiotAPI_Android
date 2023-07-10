@@ -1,11 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_main"
     app:startDestination="@id/mainScreenFragment">
-
     <fragment
         android:id="@+id/mainScreenFragment"
         android:name="com.api.study.riot_api.ui.fragment.main.MainScreenFragment"
-        android:label="MainScreenFragment" />
+        android:label="fragment_main_screen"
+        tools:layout="@layout/fragment_main_screen">
+        <action
+            android:id="@+id/action_mainScreenFragment_to_lolMainFragment"
+            app:destination="@id/lolMainFragment" />
+        <action
+            android:id="@+id/action_mainScreenFragment_to_valorantMainFragment"
+            app:destination="@id/valorantMainFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/lolMainFragment"
+        android:name="com.api.study.riot_api.ui.fragment.main.LolMainFragment"
+        android:label="LolMainFragment"
+        tools:layout="@layout/fragment_lol_main"/>
+    <fragment
+        android:id="@+id/valorantMainFragment"
+        android:name="com.api.study.riot_api.ui.fragment.main.ValorantMainFragment"
+        android:label="ValorantMainFragment"
+        tools:layout="@layout/fragment_valorant_main"/>
 </navigation>
