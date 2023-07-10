@@ -26,32 +26,42 @@ import retrofit2.Response
 
 class LoginFragment : Fragment() {
     private lateinit var binding: FragmentLoginBinding
-    private val loginViewModel: LoginViewModel by lazy { ViewModelProvider(this)[LoginViewModel::class.java] }
+    private val viewModel: LoginViewModel by lazy { ViewModelProvider(this)[LoginViewModel::class.java] }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_login, container, false)
-        binding.login = loginViewModel // LoginViewModel을 바인딩
-        binding.lifecycleOwner = this // lifecycleOwner 설정
+        binding.login = viewModel
+        binding.lifecycleOwner = this
 
-        loginViewModel.loginButtonEvent.observe(viewLifecycleOwner) {
-            if(PasswordUtils.isPasswordValid(binding.passwordTextview.text.toString()) && binding.idTextview.text.toString()
-                    .isNotEmpty()){
+        viewModel.loginButtonEvent.observe(viewLifecycleOwner) {
+            viewModel.setIdErrorMessage("")
+            viewModel.setPasswordErrorMessage("")
+            if (PasswordUtils.isPasswordValid(binding.passwordTextview.text.toString()) && binding.idTextview.text.toString()
+                    .isNotEmpty()
+            ) {
                 login(binding.idTextview.text.toString(), binding.passwordTextview.text.toString())
             } else {
-                if(!PasswordUtils.isPasswordValid(binding.passwordTextview.text.toString()) && binding.idTextview.text.toString().isEmpty()){
+                if (!PasswordUtils.isPasswordValid(binding.passwordTextview.text.toString()) && binding.idTextview.text.toString()
+                        .isEmpty()
+                ) {
                     //TODO(id가 비었을때 password는 되어있고)
-                } else if(PasswordUtils.isPasswordValid(binding.passwordTextview.text.toString()) && binding.idTextview.text.toString().isNotEmpty()){
+                    viewModel.setIdErrorMessage("아이디를 적어 주세요.")
+                } else if (PasswordUtils.isPasswordValid(binding.passwordTextview.text.toString()) && binding.idTextview.text.toString()
+                        .isNotEmpty()
+                ) {
                     //TODO(id는 적혀 있고 password는 패턴에 맞지 않거나 비어있을때)
+                    viewModel.setPasswordErrorMessage("비밀번호를 적어 주세요.\n대소문자,숫자,특수문자 포함")
                 } else {
                     //TODO(id도 비어있고 password도 패턴에 일치하지 않으면)
+                    viewModel.setIdErrorMessage("아이디를 적어 주세요.")
+                    viewModel.setPasswordErrorMessage("비밀번호를 적어 주세요.\n(대소문자,숫자,특수문자 포함)")
                 }
             }
-
         }
 
-        loginViewModel.signupButtonStatus.observe(viewLifecycleOwner, Observer { clicked ->
+        viewModel.signupButtonStatus.observe(viewLifecycleOwner, Observer { clicked ->
             if (clicked) {
                 val navController = requireActivity().findNavController(R.id.account_screen)
                 navController.navigate(R.id.action_loginFragment_to_signupFragment)

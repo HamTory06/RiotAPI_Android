@@ -47,10 +47,9 @@ class SignupFragment : Fragment() {
                 signupViewModel.passwordSameCheckStatus(true)
                 signupViewModel.passwordErrorTextView("")
                 if (signupViewModel.idSameCheckStatus.value == true && signupViewModel.passwordSameCheckStatus.value == true) {
-                    if(binding.nameEdittext.text.isNullOrEmpty()){
+                    if (binding.nameEdittext.text.isNullOrEmpty()) {
                         signupViewModel.nameNullErrorTextView("이름을 입력해주세요.")
                     } else {
-                        Log.d("상태","성공")
                         signup(
                             id = binding.idEdittext.text.toString(),
                             name = binding.nameEdittext.text.toString(),
@@ -87,15 +86,11 @@ class SignupFragment : Fragment() {
                     if (response.isSuccessful) {
                         val navController = requireActivity().findNavController(R.id.account_screen)
                         navController.navigate(R.id.action_signupFragment_to_loginFragment)
-                        Log.d("애러", response.code().toString())
-                    } else {
-                        Log.d("애러", response.code().toString())
-                        Log.d("애러", "password: $password, id: $id, name: $name")
                     }
                 }
 
                 override fun onFailure(call: Call<SignupRequestDto>, t: Throwable) {
-                    Log.d("애러", "${t.message}")
+
                 }
             })
     }
@@ -109,11 +104,11 @@ class SignupFragment : Fragment() {
             ) {
                 if (response.isSuccessful) {
                     if (response.body()?.sameId != false) {
-                        Log.d("아이디 중복 채크",response.body()?.sameId.toString())
+                        Log.d("아이디 중복 채크", response.body()?.sameId.toString())
                         signupViewModel.idSameCheckStatus(false)
                         signupViewModel.idErrorTextView("이미 존재하는 아이디입니다")
                     } else {
-                        Log.d("아이디 중복 채크",response.body()?.sameId.toString())
+                        Log.d("아이디 중복 채크", response.body()?.sameId.toString())
                         signupViewModel.idSameCheckStatus(true)
                         signupViewModel.idErrorTextView("")
                     }
@@ -125,7 +120,7 @@ class SignupFragment : Fragment() {
             }
 
             override fun onFailure(call: Call<CheckSameIdDto>, t: Throwable) {
-                Log.d("애러",t.message.toString())
+
             }
 
         })

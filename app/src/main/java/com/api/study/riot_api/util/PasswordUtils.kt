@@ -5,7 +5,7 @@ class PasswordUtils {
         private val passwordPattern = Regex("^(?=.*[a-zA-Z])(?=.*\\d)(?=.*[@#$%^&+=])(?=\\S+\$).{8,50}$")
 
         fun isPasswordValid(password: String): Boolean {
-            return passwordPattern.matches(password)
+            return !passwordPattern.matches(password)
         }
     }
 }
