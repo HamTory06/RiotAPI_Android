@@ -2,11 +2,17 @@ package com.api.study.riot_api.ui.fragment.account
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
@@ -32,6 +38,10 @@ class SignupFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_signup, container, false)
         binding.signup = signupViewModel // LoginViewModel을 바인딩
         binding.lifecycleOwner = this // lifecycleOwner 설정
+        (requireActivity() as AppCompatActivity).setSupportActionBar(binding.toolBar)
+        (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayShowTitleEnabled(false)
+        (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
+//        (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayShowHomeEnabled(true)
 
         signupViewModel.sameIdCheckButtonStatus.observe(viewLifecycleOwner, Observer {
             if (binding.idEdittext.text.toString() != "") {
@@ -72,7 +82,16 @@ class SignupFragment : Fragment() {
                 signupViewModel.passwordSameCheckStatus(false)
             }
         })
+
+        binding.toolBar.setNavigationOnClickListener {
+            onBackButtonClicked()
+        }
         return binding.root
+    }
+
+    private fun onBackButtonClicked() {
+        // 뒤로가기 버튼을 클릭했을 때 수행할 동작을 여기에 작성합니다.
+        requireActivity().onBackPressed()
     }
 
 
