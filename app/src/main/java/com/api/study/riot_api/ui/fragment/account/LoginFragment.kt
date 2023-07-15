@@ -17,7 +17,7 @@ import com.api.study.riot_api.data.model.dto.loginDto.Response.LoginResponseDto
 import com.api.study.riot_api.data.network.retrofit.client.ClientRetrofit
 import com.api.study.riot_api.databinding.FragmentLoginBinding
 import com.api.study.riot_api.ui.activity.MainActivity
-import com.api.study.riot_api.util.PasswordUtils
+import com.api.study.riot_api.util.PatternUtils
 import com.api.study.riot_api.viewModel.fragment.account.LoginViewModel
 import retrofit2.Call
 import retrofit2.Callback
@@ -36,28 +36,10 @@ class LoginFragment : Fragment() {
         binding.lifecycleOwner = this
 
         viewModel.loginButtonEvent.observe(viewLifecycleOwner) {
-            viewModel.setIdErrorMessage("")
-            viewModel.setPasswordErrorMessage("")
-            if (PasswordUtils.isPasswordValid(binding.passwordTextview.text.toString()) && binding.idTextview.text.toString()
-                    .isNotEmpty()
-            ) {
-                login(binding.idTextview.text.toString(), binding.passwordTextview.text.toString())
-            } else {
-                if (!PasswordUtils.isPasswordValid(binding.passwordTextview.text.toString()) && binding.idTextview.text.toString()
-                        .isEmpty()
-                ) {
-                    //TODO(id가 비었을때 password는 되어있고)
-                    viewModel.setIdErrorMessage("아이디를 적어 주세요.")
-                } else if (PasswordUtils.isPasswordValid(binding.passwordTextview.text.toString()) && binding.idTextview.text.toString()
-                        .isNotEmpty()
-                ) {
-                    //TODO(id는 적혀 있고 password는 패턴에 맞지 않거나 비어있을때)
-                    viewModel.setPasswordErrorMessage("비밀번호를 적어 주세요.\n대소문자,숫자,특수문자 포함")
-                } else {
-                    //TODO(id도 비어있고 password도 패턴에 일치하지 않으면)
-                    viewModel.setIdErrorMessage("아이디를 적어 주세요.")
-                    viewModel.setPasswordErrorMessage("비밀번호를 적어 주세요.\n(대소문자,숫자,특수문자 포함)")
-                }
+            val password: String = binding.passwordTextview.text.toString()
+            val id: String = binding.idTextview.text.toString()
+            if(PatternUtils.isPasswordValid(password) && PatternUtils.isIdValid(id)){
+                login(id, password)
             }
         }
 
@@ -91,6 +73,16 @@ class LoginFragment : Fragment() {
                 Log.d("ERROR", t.message.toString())
             }
         })
+    }
+
+    private fun idErrorMessage(textColor: Int, text: String) {
+        viewModel.changeIdErrorMessageTextViewColor(textColor)
+        viewModel.setIdErrorMessage(text)
+    }
+
+    private fun passwordErrorMessage(textColor: Int, text: String){
+        viewModel.changePasswordErrorMessageTextViewColor(textColor)
+        viewModel.setPasswordErrorMessage(text)
     }
 
 }

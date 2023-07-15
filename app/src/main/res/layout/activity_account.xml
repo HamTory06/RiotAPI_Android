@@ -8,12 +8,12 @@
             name="account"
             type="com.api.study.riot_api.viewModel.activity.AccountViewModel" />
     </data>
+
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/account_screen"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.activity.accountActivity"
         app:navGraph="@navigation/nav_account"/>
 </layout>
 

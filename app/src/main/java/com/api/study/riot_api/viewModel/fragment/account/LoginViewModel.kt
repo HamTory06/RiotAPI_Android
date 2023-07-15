@@ -13,7 +13,17 @@ class LoginViewModel: ViewModel() {
     val signupButtonStatus: LiveData<Boolean> = _signupButtonStatus
 
     val idErrorMessage = MutableLiveData<String>()
-    val passwowrdErrorMessage = MutableLiveData<String>()
+    val passwordErrorMessage = MutableLiveData<String>()
+    val idErrorMessageTextColor = MutableLiveData<Int>()
+    val passwordErrorMessageTextColor = MutableLiveData<Int>()
+
+    fun changeIdErrorMessageTextViewColor(textColor: Int) {
+        idErrorMessageTextColor.value = textColor
+    }
+
+    fun changePasswordErrorMessageTextViewColor(textColor: Int) {
+        passwordErrorMessageTextColor.value = textColor
+    }
     fun onClickSignupButton(){
         _signupButtonStatus.value = true
     }
@@ -26,7 +36,7 @@ class LoginViewModel: ViewModel() {
     }
 
     fun setPasswordErrorMessage(errorMessage: String){
-        passwowrdErrorMessage.value = errorMessage
+        passwordErrorMessage.value = errorMessage
     }
 
 
