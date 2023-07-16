@@ -26,7 +26,7 @@ import retrofit2.Response
 
 class LoginFragment : Fragment() {
     private lateinit var binding: FragmentLoginBinding
-    private val viewModel: LoginViewModel by lazy { ViewModelProvider(this)[LoginViewModel::class.java] }
+    val viewModel: LoginViewModel by lazy { ViewModelProvider(this)[LoginViewModel::class.java] }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -38,9 +38,7 @@ class LoginFragment : Fragment() {
         viewModel.loginButtonEvent.observe(viewLifecycleOwner) {
             val password: String = binding.passwordTextview.text.toString()
             val id: String = binding.idTextview.text.toString()
-            if(PatternUtils.isPasswordValid(password) && PatternUtils.isIdValid(id)){
-                login(id, password)
-            }
+            login(id, password)
         }
 
         viewModel.signupButtonStatus.observe(viewLifecycleOwner, Observer { clicked ->
@@ -66,6 +64,8 @@ class LoginFragment : Fragment() {
                     val intent = Intent(context, MainActivity::class.java)
                     startActivity(intent)
                     activity?.finish()
+                } else {
+                    viewModel.loginErrorMessage("비밀번호나 아이디가 틀렸습니다.")
                 }
             }
 
@@ -75,14 +75,8 @@ class LoginFragment : Fragment() {
         })
     }
 
-    private fun idErrorMessage(textColor: Int, text: String) {
-        viewModel.changeIdErrorMessageTextViewColor(textColor)
-        viewModel.setIdErrorMessage(text)
-    }
 
-    private fun passwordErrorMessage(textColor: Int, text: String){
-        viewModel.changePasswordErrorMessageTextViewColor(textColor)
-        viewModel.setPasswordErrorMessage(text)
-    }
+
+
 
 }

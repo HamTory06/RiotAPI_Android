@@ -67,11 +67,11 @@ class SignupFragment : Fragment() {
     }
 
     private fun checkPassword(password: String): Boolean {
-        return PatternUtils.isPasswordValid(password)
+        return PatternUtils.isPasswordValid(SignupFragment(),password)
     }
 
     private fun checkId(id: String): Boolean {
-        return PatternUtils.isIdValid(id)
+        return PatternUtils.isIdValid(SignupFragment(),id)
     }
 
     private fun signup(id: String, name: String, password: String) {
@@ -121,12 +121,12 @@ class SignupFragment : Fragment() {
         })
     }
 
-    private fun idErrorMessage(textColor: Int, text: String) {
+    fun idErrorMessage(textColor: Int, text: String) {
         viewModel.changeIdErrorMessageTextViewColor(textColor)
         viewModel.idErrorTextView(text)
     }
 
-    private fun passwordErrorMessage(textColor: Int, text: String) {
+    fun passwordErrorMessage(textColor: Int, text: String) {
         viewModel.changePasswordErrorMessageTextViewColor(textColor)
         viewModel.passwordErrorTextView(text)
     }

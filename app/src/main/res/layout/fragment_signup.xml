@@ -15,6 +15,22 @@
         android:layout_height="match_parent"
         tools:context=".ui.fragment.account.SignupFragment">
 
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" >
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/tool_bar"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                app:title=""
+                android:background="@color/white"/>
+        </com.google.android.material.appbar.AppBarLayout>
+
 
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
@@ -106,8 +122,8 @@
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{signup.idEditTextErrorTextView}"
-            android:textColor="#F00"
+            android:text="@{signup.idErrorMessageTextView}"
+            android:textColor="@{signup.idErrorMessageTextColor}"
             android:textSize="10sp"
             app:layout_constraintStart_toStartOf="@+id/id"
             app:layout_constraintTop_toBottomOf="@+id/idLayout" />
@@ -140,17 +156,20 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:text="@{signup.checkPassword}"
                 android:inputType="textPassword"
                 android:fontFamily="@font/pretendard_bold"
                 android:hint="비밀번호"
                 android:textSize="12sp" />
         </androidx.appcompat.widget.LinearLayoutCompat>
+
         <TextView
+            android:id="@+id/password_error_message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#F00"
+            android:text="@{signup.passwordErrorMessageTextView}"
+            android:textColor="@{signup.passwordErrorMessageTextColor}"
             android:textSize="10sp"
-            android:text="@{signup.passwordEditTextErrorTextView}"
             app:layout_constraintStart_toStartOf="@+id/password1"
             app:layout_constraintTop_toBottomOf="@+id/password1" />
 
@@ -171,7 +190,7 @@
             android:id="@+id/password2"
             android:layout_marginStart="40dp"
             android:layout_marginEnd="40dp"
-            android:layout_marginBottom="200dp"
+            android:layout_marginBottom="150dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toTopOf="@+id/signup_button">
