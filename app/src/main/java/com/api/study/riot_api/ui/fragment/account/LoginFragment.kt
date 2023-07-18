@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.api.study.riot_api.R
 import com.api.study.riot_api.data.model.dto.loginDto.Request.LoginRequestDto
 import com.api.study.riot_api.data.model.dto.loginDto.Response.LoginResponseDto
@@ -43,13 +44,13 @@ class LoginFragment : Fragment() {
 
         viewModel.signupButtonStatus.observe(viewLifecycleOwner, Observer { clicked ->
             if (clicked) {
-                val navController = requireActivity().findNavController(R.id.account_screen)
-                navController.navigate(R.id.action_loginFragment_to_signupFragment)
+                findNavController().navigate(R.id.action_loginFragment_to_signupFragment)
             }
         })
 
         return binding.root
     }
+
 
     private fun login(id: String, password: String) {
         ClientRetrofit.api.login(
@@ -61,9 +62,7 @@ class LoginFragment : Fragment() {
                 call: Call<LoginResponseDto>, response: Response<LoginResponseDto>
             ) {
                 if (response.isSuccessful) {
-                    val intent = Intent(context, MainActivity::class.java)
-                    startActivity(intent)
-                    activity?.finish()
+                    loginButton()
                 } else {
                     viewModel.loginErrorMessage("비밀번호나 아이디가 틀렸습니다.")
                 }
@@ -75,8 +74,11 @@ class LoginFragment : Fragment() {
         })
     }
 
-
-
+    private fun loginButton(){
+        val intent = Intent(context, MainActivity::class.java)
+        startActivity(intent)
+        activity?.finish()
+    }
 
 
 }

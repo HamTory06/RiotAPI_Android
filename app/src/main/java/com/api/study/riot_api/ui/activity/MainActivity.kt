@@ -15,11 +15,11 @@ class MainActivity : AppCompatActivity() {
             R.layout.activity_main
         )
     }
-    private val mainViewModel: MainViewModel by lazy { ViewModelProvider(this)[MainViewModel::class.java] }
+    private val viewModel: MainViewModel by lazy { ViewModelProvider(this)[MainViewModel::class.java] }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding.main = mainViewModel
+        binding.main = viewModel
         binding.lifecycleOwner = this
     }
 }

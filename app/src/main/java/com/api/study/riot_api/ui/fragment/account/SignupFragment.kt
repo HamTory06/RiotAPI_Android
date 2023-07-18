@@ -2,15 +2,18 @@ package com.api.study.riot_api.ui.fragment.account
 
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.api.study.riot_api.R
 import com.api.study.riot_api.data.model.dto.CheckSameIdDto
 import com.api.study.riot_api.data.model.dto.signupDto.request.SignupRequestDto
@@ -57,13 +60,19 @@ class SignupFragment : Fragment() {
         })
 
         binding.toolBar.setNavigationOnClickListener {
+            Log.d("클릭","뒤로가기")
+            onBackButtonClicked()
+        }
+
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner){
             onBackButtonClicked()
         }
         return binding.root
     }
 
     private fun onBackButtonClicked() {
-        //TODO(뒤로가기)
+        val action = SignupFragmentDirections.actionSignupFragmentToLoginFragment()
+        findNavController().navigate(action)
     }
 
     private fun checkPassword(password: String): Boolean {
