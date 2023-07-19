@@ -12,23 +12,27 @@ class SignupViewModel : ViewModel() {
     private val _sameIdCheckButtonStatus = MutableLiveData<Boolean>()
     val sameIdCheckButtonStatus: LiveData<Boolean> = _sameIdCheckButtonStatus
 
+    private val _passwordErrorMessageTextColor = MutableLiveData<Int>()
+    val passwordErrorMessageTextColor: LiveData<Int> = _passwordErrorMessageTextColor
+
+    private val _idErrorMessageTextColor = MutableLiveData<Int>()
+    val idErrorMessageTextColor: LiveData<Int> = _idErrorMessageTextColor
+
+    private val _nameErrorMessageText = MutableLiveData<String>()
+    val nameErrorMessageText: LiveData<String> = _nameErrorMessageText
+
+
     val idErrorMessageTextView = MutableLiveData<String>()
     val passwordErrorMessageTextView = MutableLiveData<String>()
-    val nameEditTextErrorTextView = MutableLiveData<String>()
-    val idSameCheckStatus = MutableLiveData<Boolean>()
-    val passwordSameCheckStatus = MutableLiveData<Boolean>()
-    val nameNullCheckStatus = MutableLiveData<Boolean>()
-    val idErrorMessageTextColor = MutableLiveData<Int>()
-    val passwordErrorMessageTextColor = MutableLiveData<Int>()
     val checkPassword = ObservableField<String>("")
 
 
-    fun changeIdErrorMessageTextViewColor(textColor: Int) {
-        idErrorMessageTextColor.value = textColor
+    fun changeIdErrorMessageTextColor(textColor: Int) {
+        _idErrorMessageTextColor.value = textColor
     }
 
-    fun changePasswordErrorMessageTextViewColor(textColor: Int) {
-        passwordErrorMessageTextColor.value = textColor
+    fun changePasswordErrorMessageTextColor(textColor: Int) {
+        _passwordErrorMessageTextColor.value = textColor
     }
 
     fun onClickSignupButton() {
@@ -39,28 +43,16 @@ class SignupViewModel : ViewModel() {
         _sameIdCheckButtonStatus.value = true
     }
 
-    fun idErrorTextView(errorMessage: String) {
+    fun idErrorText(errorMessage: String) {
         idErrorMessageTextView.value = errorMessage
     }
 
-    fun passwordErrorTextView(errorMessage: String) {
+    fun passwordErrorText(errorMessage: String) {
         passwordErrorMessageTextView.value = errorMessage
     }
 
-    fun idSameCheckStatus(status: Boolean) {
-        idSameCheckStatus.value = status
-    }
-
-    fun passwordSameCheckStatus(status: Boolean) {
-        passwordSameCheckStatus.value = status
-    }
-
-    fun nameNullCheckStatus(status: Boolean) {
-        nameNullCheckStatus.value = status
-    }
-
-    fun nameNullErrorTextView(errorMessage: String) {
-        nameEditTextErrorTextView.value = errorMessage
+    fun nameErrorText(errorMessage: String){
+        _nameErrorMessageText.value = errorMessage
     }
 
 

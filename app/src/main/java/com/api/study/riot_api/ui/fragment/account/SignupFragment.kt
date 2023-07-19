@@ -46,25 +46,29 @@ class SignupFragment : Fragment() {
         })
 
         viewModel.signupButtonStatus.observe(viewLifecycleOwner, Observer {
-            if (checkPassword(binding.passwordEdittext1.text.toString()) && checkId(binding.idEdittext.text.toString()) && binding.nameEdittext.text.toString()
-                    .isNotEmpty()
-            ) {
+            val idValid = checkId(binding.idEdittext.text.toString())
+            val nameValid = checkName(binding.nameEdittext.text.toString())
+            val passwordValid = checkPassword(binding.passwordEdittext1.text.toString())
+            val passwordSameValid = checkPasswordSame(binding.passwordEdittext1.text.toString(), binding.passwordEdittext2.text.toString())
+
+            if (!idValid && !nameValid && !passwordValid && passwordSameValid) {
                 signup(
                     id = binding.idEdittext.text.toString(),
                     name = binding.nameEdittext.text.toString(),
                     password = binding.passwordEdittext1.text.toString()
                 )
+                passwordErrorMessage(Color.RED, "")
+                idErrorMessage(Color.RED, "")
+                nameErrorMessage("")
             } else {
-                passwordErrorMessage(Color.RED, "비밀번호가 다릅니다.")
             }
         })
 
         binding.toolBar.setNavigationOnClickListener {
-            Log.d("클릭","뒤로가기")
             onBackButtonClicked()
         }
 
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner){
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             onBackButtonClicked()
         }
         return binding.root
@@ -76,12 +80,39 @@ class SignupFragment : Fragment() {
     }
 
     private fun checkPassword(password: String): Boolean {
-        return PatternUtils.isPasswordValid(SignupFragment(),password)
+        if (PatternUtils.isPasswordValid(password)) {
+            passwordErrorMessage(Color.RED, "대소문자 특수문자 포함해서 적어주세요")
+        } else {
+            passwordErrorMessage(Color.RED, "")
+        }
+        return PatternUtils.isPasswordValid(password)
+    }
+
+    private fun checkPasswordSame(password1: String, password2: String): Boolean{
+        if(password2 != password1){
+            passwordErrorMessage(Color.RED, "비밀번호가 같은지 확인해주세요")
+        }
+        return password1 == password2
     }
 
     private fun checkId(id: String): Boolean {
-        return PatternUtils.isIdValid(SignupFragment(),id)
+        if (PatternUtils.isIdValid(id)) {
+            idErrorMessage(Color.RED, "다시 적어주세요")
+        } else {
+            idErrorMessage(Color.RED, "")
+        }
+        return PatternUtils.isIdValid(id)
     }
+
+    private fun checkName(name: String): Boolean {
+        if (name.isEmpty()) {
+            nameErrorMessage("이름이 비어있습니다")
+        } else {
+            nameErrorMessage("")
+        }
+        return name.isEmpty()
+    }
+
 
     private fun signup(id: String, name: String, password: String) {
         ClientRetrofit.api.signup(SignupRequestDto(id = id, name = name, password = password))
@@ -109,14 +140,11 @@ class SignupFragment : Fragment() {
             ) {
                 if (response.isSuccessful) {
                     if (response.body()?.sameId != false) {
-                        viewModel.idSameCheckStatus(false)
                         idErrorMessage(Color.RED, "존재하는 아이디입니다")
                     } else {
-                        viewModel.idSameCheckStatus(true)
                         idErrorMessage(Color.GREEN, "성공")
                     }
                 } else if (response.code() == 400) {
-                    viewModel.idSameCheckStatus(false)
                     idErrorMessage(Color.RED, "아이디를 적어주세요")
                 }
             }
@@ -129,12 +157,17 @@ class SignupFragment : Fragment() {
     }
 
     fun idErrorMessage(textColor: Int, text: String) {
-        viewModel.changeIdErrorMessageTextViewColor(textColor)
-        viewModel.idErrorTextView(text)
+        viewModel.changeIdErrorMessageTextColor(textColor)
+        viewModel.idErrorText(text)
     }
 
     fun passwordErrorMessage(textColor: Int, text: String) {
-        viewModel.changePasswordErrorMessageTextViewColor(textColor)
-        viewModel.passwordErrorTextView(text)
+        viewModel.changePasswordErrorMessageTextColor(textColor)
+        viewModel.passwordErrorText(text)
     }
+
+    fun nameErrorMessage(text: String) {
+        viewModel.nameErrorText(text)
+    }
+
 }
