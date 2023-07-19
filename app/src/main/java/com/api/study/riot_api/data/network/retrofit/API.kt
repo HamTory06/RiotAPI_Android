@@ -30,7 +30,7 @@ interface API {
     @POST("/api/account/signup")
     fun signup(
         @Body signupDto: SignupRequestDto
-    ): Call<SignupRequestDto>
+    ): Call<Void>
 
     @POST("/api/account/login")
     fun login(

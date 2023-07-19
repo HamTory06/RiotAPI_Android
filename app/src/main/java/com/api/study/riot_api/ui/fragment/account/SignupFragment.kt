@@ -85,10 +85,9 @@ class SignupFragment : Fragment() {
 
     private fun signup(id: String, name: String, password: String) {
         ClientRetrofit.api.signup(SignupRequestDto(id = id, name = name, password = password))
-            .enqueue(object : Callback<SignupRequestDto> {
+            .enqueue(object : Callback<Void> {
                 override fun onResponse(
-                    call: Call<SignupRequestDto>,
-                    response: Response<SignupRequestDto>
+                    call: Call<Void>, response: Response<Void>
                 ) {
                     if (response.isSuccessful) {
                         val navController = requireActivity().findNavController(R.id.account_screen)
@@ -96,8 +95,7 @@ class SignupFragment : Fragment() {
                     }
                 }
 
-                override fun onFailure(call: Call<SignupRequestDto>, t: Throwable) {
-
+                override fun onFailure(call: Call<Void>, t: Throwable) {
                 }
             })
     }
