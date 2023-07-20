@@ -21,10 +21,11 @@ class SignupViewModel : ViewModel() {
     private val _nameErrorMessageText = MutableLiveData<String>()
     val nameErrorMessageText: LiveData<String> = _nameErrorMessageText
 
+    private val _idErrorMessageTextView = MutableLiveData<String>()
+    val idErrorMessageTextView:LiveData<String> = _idErrorMessageTextView
 
-    val idErrorMessageTextView = MutableLiveData<String>()
-    val passwordErrorMessageTextView = MutableLiveData<String>()
-    val checkPassword = ObservableField<String>("")
+    private val _passwordErrorMessageTextView = MutableLiveData<String>()
+    val passwordErrorMessageTextView: LiveData<String> = _passwordErrorMessageTextView
 
 
     fun changeIdErrorMessageTextColor(textColor: Int) {
@@ -44,11 +45,11 @@ class SignupViewModel : ViewModel() {
     }
 
     fun idErrorText(errorMessage: String) {
-        idErrorMessageTextView.value = errorMessage
+        _idErrorMessageTextView.value = errorMessage
     }
 
     fun passwordErrorText(errorMessage: String) {
-        passwordErrorMessageTextView.value = errorMessage
+        _passwordErrorMessageTextView.value = errorMessage
     }
 
     fun nameErrorText(errorMessage: String){

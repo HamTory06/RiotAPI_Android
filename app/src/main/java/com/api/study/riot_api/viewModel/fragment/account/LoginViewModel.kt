@@ -12,7 +12,8 @@ class LoginViewModel: ViewModel() {
     private val _signupButtonStatus = MutableLiveData<Boolean>()
     val signupButtonStatus: LiveData<Boolean> = _signupButtonStatus
 
-    val loginErrorMessage = MutableLiveData<String>()
+    private val _loginErrorMessage = MutableLiveData<String>()
+    val loginErrorMessage:LiveData<String> = _loginErrorMessage
 
     fun onClickSignupButton(){
         _signupButtonStatus.value = true
@@ -23,7 +24,7 @@ class LoginViewModel: ViewModel() {
     }
 
     fun loginErrorMessage(errorMessage: String){
-        loginErrorMessage.value = errorMessage
+        _loginErrorMessage.value = errorMessage
     }
 
 }
