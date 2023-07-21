@@ -2,7 +2,6 @@ package com.api.study.riot_api.ui.fragment.account
 
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -60,7 +59,6 @@ class SignupFragment : Fragment() {
                 passwordErrorMessage(Color.RED, "")
                 idErrorMessage(Color.RED, "")
                 nameErrorMessage("")
-            } else {
             }
         })
 

@@ -10,7 +10,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.api.study.riot_api.R
 import com.api.study.riot_api.data.model.dto.loginDto.Request.LoginRequestDto
@@ -18,7 +17,6 @@ import com.api.study.riot_api.data.model.dto.loginDto.Response.LoginResponseDto
 import com.api.study.riot_api.data.network.retrofit.client.ClientRetrofit
 import com.api.study.riot_api.databinding.FragmentLoginBinding
 import com.api.study.riot_api.ui.activity.MainActivity
-import com.api.study.riot_api.util.PatternUtils
 import com.api.study.riot_api.viewModel.fragment.account.LoginViewModel
 import retrofit2.Call
 import retrofit2.Callback

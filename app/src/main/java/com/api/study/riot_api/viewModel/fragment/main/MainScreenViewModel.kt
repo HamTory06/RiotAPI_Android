@@ -9,13 +9,13 @@ class MainScreenViewModel : ViewModel() {
     val lolButtonStatus: LiveData<Boolean> = _lolButtonStatus
 
     private val _valorantButtonStatus = MutableLiveData<Boolean>()
-    val valorantButtonStatus: LiveData<Boolean> = _lolButtonStatus
+    val valorantButtonStatus: LiveData<Boolean> = _valorantButtonStatus
 
     fun onclickLolButton() {
         _lolButtonStatus.value = true
     }
 
-    fun onclickValorant() {
+    fun onclickValorantButton() {
         _valorantButtonStatus.value = true
     }
 

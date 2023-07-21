@@ -11,23 +11,27 @@
         tools:layout="@layout/fragment_main_screen">
         <action
             android:id="@+id/action_mainScreenFragment_to_lolMainFragment"
-            app:popUpTo="@layout/fragment_lol_main"
-            app:popUpToInclusive="true"
             app:destination="@id/lolMainFragment" />
         <action
             android:id="@+id/action_mainScreenFragment_to_valorantMainFragment"
-            app:popUpTo="@layout/fragment_valorant_main"
-            app:popUpToInclusive="true"
             app:destination="@id/valorantMainFragment" />
     </fragment>
     <fragment
         android:id="@+id/lolMainFragment"
         android:name="com.api.study.riot_api.ui.fragment.main.LolMainFragment"
-        android:label="LolMainFragment"
-        tools:layout="@layout/fragment_lol_main" />
+        android:label="fragment_main_lol"
+        tools:layout="@layout/fragment_lol_main" >
+        <action
+            android:id="@+id/action_lolMainFragment_to_mainScreenFragment"
+            app:destination="@id/mainScreenFragment" />
+    </fragment>
     <fragment
         android:id="@+id/valorantMainFragment"
         android:name="com.api.study.riot_api.ui.fragment.main.ValorantMainFragment"
-        android:label="ValorantMainFragment"
-        tools:layout="@layout/fragment_valorant_main" />
+        android:label="fragment_main_valorant"
+        tools:layout="@layout/fragment_valorant_main" >
+        <action
+            android:id="@+id/action_valorantMainFragment_to_mainScreenFragment"
+            app:destination="@id/mainScreenFragment" />
+    </fragment>
 </navigation>

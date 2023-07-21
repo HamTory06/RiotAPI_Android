@@ -5,8 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.api.study.riot_api.R
 import com.api.study.riot_api.databinding.FragmentLolMainBinding
 import com.api.study.riot_api.databinding.FragmentMainScreenBinding
@@ -26,8 +28,15 @@ class LolMainFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_lol_main, container, false)
         binding.lol = viewModel
         binding.lifecycleOwner = this
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            onBackButtonClicked()
+        }
 
         return binding.root
+    }
+    private fun onBackButtonClicked() {
+        val action = LolMainFragmentDirections.actionLolMainFragmentToMainScreenFragment()
+        findNavController().navigate(action)
     }
 
 }
