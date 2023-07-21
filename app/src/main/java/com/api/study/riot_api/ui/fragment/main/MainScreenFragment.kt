@@ -31,7 +31,8 @@ class MainScreenFragment : Fragment() {
         }
 
         viewModel.valorantButtonStatus.observe(viewLifecycleOwner) {
-
+            val navController = requireActivity().findNavController(R.id.main_screen)
+            navController.navigate(R.id.action_mainScreenFragment_to_valorantMainFragment)
         }
 
         return binding.root
