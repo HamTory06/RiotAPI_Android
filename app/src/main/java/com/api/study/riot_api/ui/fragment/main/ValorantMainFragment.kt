@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.addCallback
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.api.study.riot_api.R
@@ -27,9 +28,16 @@ class ValorantMainFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_valorant_main, container, false)
         binding.valorant = viewModel
         binding.lifecycleOwner = this
+
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             onBackButtonClicked()
         }
+
+        viewModel.backButtonStatus.observe(viewLifecycleOwner, Observer{
+            if(it){
+                onBackButtonClicked()
+            }
+        })
 
         return binding.root
     }
