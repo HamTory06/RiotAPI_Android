@@ -1,49 +1,1 @@
-<?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-    <data>
-        <variable
-            name="lol"
-            type="com.api.study.riot_api.viewModel.fragment.main.LolMainViewModel" />
-    </data>
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".ui.fragment.main.LolMainFragment">
-        <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/app_bar"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:background="@color/white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" >
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/tool_bar"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:background="@color/white">
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="League of Legends"
-                    android:textSize="20sp"
-                    android:fontFamily="@font/pretendard_medium"
-                    android:layout_gravity="center"/>
-                <androidx.appcompat.widget.AppCompatImageButton
-                    android:id="@+id/back_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:onClick="@{() -> lol.onclickBackButton()}"
-                    android:background="@null"
-                    android:src="@drawable/ic_back_button"/>
-            </androidx.appcompat.widget.Toolbar>
-
-        </com.google.android.material.appbar.AppBarLayout>
-
-
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</layout>
+<?xml version="1.0" encoding="utf-8"?><layout xmlns:tools="http://schemas.android.com/tools"    xmlns:android="http://schemas.android.com/apk/res/android"    xmlns:app="http://schemas.android.com/apk/res-auto">    <data>        <variable            name="lol"            type="com.api.study.riot_api.viewModel.fragment.main.LolMainViewModel" />    </data>    <androidx.constraintlayout.widget.ConstraintLayout        android:layout_width="match_parent"        android:layout_height="match_parent"        tools:context=".ui.fragment.main.LolMainFragment">        <com.google.android.material.appbar.AppBarLayout            android:id="@+id/app_bar"            android:layout_width="match_parent"            android:layout_height="60dp"            android:background="@color/white"            app:layout_constraintEnd_toEndOf="parent"            app:layout_constraintStart_toStartOf="parent"            app:layout_constraintTop_toTopOf="parent" >            <androidx.appcompat.widget.Toolbar                android:id="@+id/tool_bar"                android:layout_width="match_parent"                android:layout_height="60dp"                android:background="@color/white">                <androidx.appcompat.widget.AppCompatTextView                    android:layout_width="wrap_content"                    android:layout_height="wrap_content"                    android:text="League of Legends"                    android:textSize="20sp"                    android:fontFamily="@font/pretendard_medium"                    android:layout_gravity="center"/>                <androidx.appcompat.widget.AppCompatImageButton                    android:id="@+id/back_button"                    android:layout_width="wrap_content"                    android:layout_height="wrap_content"                    android:onClick="@{() -> lol.onclickBackButton()}"                    android:background="@null"                    android:src="@drawable/ic_back_button"/>            </androidx.appcompat.widget.Toolbar>        </com.google.android.material.appbar.AppBarLayout>        <androidx.appcompat.widget.AppCompatEditText            android:id="@+id/search_edittext"            android:layout_width="match_parent"            android:layout_height="50dp"            android:layout_marginTop="50dp"            android:layout_marginStart="40dp"            android:layout_marginEnd="40dp"            android:hint="소환사의 이름을 적어주세요"            android:textSize="15sp"            android:paddingStart="20dp"            android:background="@drawable/background_search_edittext"            app:layout_constraintEnd_toEndOf="parent"            app:layout_constraintStart_toStartOf="parent"            app:layout_constraintTop_toBottomOf="@+id/app_bar"/>        <androidx.appcompat.widget.AppCompatImageView            android:id="@+id/search_button"            android:layout_width="wrap_content"            android:layout_height="wrap_content"            android:src="@drawable/ic_search"            android:layout_marginEnd="20dp"            app:layout_constraintBottom_toBottomOf="@+id/search_edittext"            app:layout_constraintEnd_toEndOf="@+id/search_edittext"            app:layout_constraintTop_toTopOf="@+id/search_edittext" />    </androidx.constraintlayout.widget.ConstraintLayout></layout>
