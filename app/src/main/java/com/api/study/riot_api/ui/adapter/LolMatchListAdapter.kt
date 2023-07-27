@@ -7,7 +7,7 @@ import com.api.study.riot_api.data.model.dto.MatchInformationDto
 import com.api.study.riot_api.databinding.ItemRecyclerviewLolBinding
 
 class LolMatchListAdapter(private val matchList: List<MatchInformationDto>): RecyclerView.Adapter<LolMatchListAdapter.ViewHolder>() {
-    inner class ViewHolder(private val binding: ItemRecyclerviewLolBinding): RecyclerView.ViewHolder(binding.root)
+    inner class ViewHolder(val binding: ItemRecyclerviewLolBinding): RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ItemRecyclerviewLolBinding.inflate(LayoutInflater.from(parent.context),parent, false)
@@ -17,6 +17,6 @@ class LolMatchListAdapter(private val matchList: List<MatchInformationDto>): Rec
     override fun getItemCount(): Int = matchList.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        TODO("Not yet implemented")
+
     }
 }

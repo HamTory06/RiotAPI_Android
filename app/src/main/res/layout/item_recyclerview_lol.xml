@@ -9,8 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_margin="10dp"
-        android:orientation="vertical">
-
+        android:background="@drawable/background_lol_information_recyclerview_item">
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/Champion_Profile_icon"
             android:layout_width="70dp"

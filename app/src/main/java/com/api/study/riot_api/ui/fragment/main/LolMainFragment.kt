@@ -12,6 +12,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.api.study.riot_api.R
 import com.api.study.riot_api.data.model.dto.LolUserDto
 import com.api.study.riot_api.data.model.dto.MatchInformationDto
@@ -32,6 +33,8 @@ class LolMainFragment : Fragment() {
 
     private lateinit var adapter: LolMatchListAdapter
 
+    private var matchInformationData: MutableList<MatchInformationDto> = ArrayList()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -39,7 +42,9 @@ class LolMainFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_lol_main, container, false)
         binding.lol = viewModel
         binding.lifecycleOwner = this
-//        binding.matchListRecyclerview.layoutManager = LinearLayoutManager(activity)
+        binding.matchListRecyclerview.layoutManager = LinearLayoutManager(requireContext())
+        adapter = LolMatchListAdapter(matchInformationData)
+        binding.matchListRecyclerview.adapter = adapter
 
 
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
@@ -52,12 +57,22 @@ class LolMainFragment : Fragment() {
             }
         })
 
-        viewModel.searchButtonStatus.observe(viewLifecycleOwner, Observer {
-            val name = binding.searchEdittext.text.toString()
-            if (it) {
-                search(name)
+        viewModel.lolUserInformation.observe(viewLifecycleOwner, Observer {
+            viewModel.getMatchId(0, it.lolUserPuuId)
+        })
+
+        viewModel.lolMatchsId.observe(viewLifecycleOwner, Observer {
+            for(matchId in it){
+                viewModel.getMatchInformation(matchId)
             }
         })
+
+        viewModel.lolMatchInformation.observe(viewLifecycleOwner, Observer {
+            matchInformationData.add(it)
+            adapter.notifyDataSetChanged()
+        })
+
+
 
         return binding.root
     }
@@ -67,66 +82,9 @@ class LolMainFragment : Fragment() {
         findNavController().navigate(action)
     }
 
-    private fun search(name: String) {
-        ClientRetrofit.api.findUser(name).enqueue(object : Callback<LolUserDto> {
-            override fun onResponse(call: Call<LolUserDto>, response: Response<LolUserDto>) {
-                if (response.isSuccessful) {
-                    val puuid = response.body()?.lolUserPuuId.toString()
-                    getMatchId(0, puuid)
-                } else {
-                    Log.d("search", response.code().toString())
-                }
-            }
-
-            override fun onFailure(call: Call<LolUserDto>, t: Throwable) {
-                Log.d("상태", t.message.toString())
-            }
-
-        })
-    }
-
-    private fun getMatchId(page: Int, puuid: String?) {
-        ClientRetrofit.api.matchId(puuid, page * 10, 10).enqueue(object : Callback<MatchesId> {
-            override fun onResponse(call: Call<MatchesId>, response: Response<MatchesId>) {
-                if (response.isSuccessful) {
-                    Log.d("getMatchId", response.body().toString())
-                    for(matchId in response.body()!!){
-                        getMatchInformation(matchId)
-                    }
-                } else {
-                    Log.d("getMatchId", response.code().toString())
-                }
-            }
-
-            override fun onFailure(call: Call<MatchesId>, t: Throwable) {
-                Log.d("getMatchId", t.message.toString())
-            }
-
-        })
-    }
 
 
-    private fun getMatchInformation(matchId: String) {
-        ClientRetrofit.api.matchInformation(matchId)
-            .enqueue(object : Callback<MatchInformationDto> {
-                override fun onResponse(
-                    call: Call<MatchInformationDto>,
-                    response: Response<MatchInformationDto>
-                ) {
-                    if (response.isSuccessful) {
-                        Log.d("getMatchInformation", response.body().toString())
-                    } else {
-                        Log.d("getMatchInformation", response.code().toString())
-                    }
-                }
 
-                override fun onFailure(call: Call<MatchInformationDto>, t: Throwable) {
-                    Log.d("getMatchInformation", t.message.toString())
-                }
-
-            })
-
-    }
 
 
     private fun toastMessage(message: String) {
