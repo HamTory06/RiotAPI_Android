@@ -51,7 +51,8 @@ interface API {
 
     @GET("/api/riotAPI/lol/match/getMatchInformation/{matchId}")
     fun matchInformation(
-        @Path("matchId") matchId: String
+        @Path("matchId") matchId: String,
+        @Query("puuid") puuid: String
     ): Call<MatchInformationDto>
 
     @GET("/api/riotAPI/lol/match/getMatchId/{puuid}")

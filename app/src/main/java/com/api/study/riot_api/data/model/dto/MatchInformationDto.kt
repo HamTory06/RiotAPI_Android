@@ -1,7 +1,7 @@
 package com.api.study.riot_api.data.model.dto
 
 data class MatchInformationDto(
-    val dataVersion: String,
+    val matchId: String,
     val gameCreation: Long,
     val gameDuration: Int,
     val gameEndTimestamp: Long,
@@ -11,5 +11,14 @@ data class MatchInformationDto(
     val gameType: String,
     val gameVersion: String,
     val mapId: Int,
-    val matchId: String
+    val dataVersion: String,
+    val championLevel: Int,
+    val championId: Int,
+    val item0: Int,
+    val item1: Int,
+    val item2: Int,
+    val item3: Int,
+    val item4: Int,
+    val item5: Int,
+    val item6: Int,
 )

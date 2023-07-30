@@ -72,8 +72,8 @@ class LolMainViewModel : ViewModel() {
     }
 
 
-    fun getMatchInformation(matchId: String) {
-        ClientRetrofit.api.matchInformation(matchId)
+    fun getMatchInformation(matchId: String, puuid: String) {
+        ClientRetrofit.api.matchInformation(matchId, puuid)
             .enqueue(object : Callback<MatchInformationDto> {
                 override fun onResponse(
                     call: Call<MatchInformationDto>,
