@@ -14,16 +14,12 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.api.study.riot_api.R
-import com.api.study.riot_api.data.model.dto.LolUserDto
+import com.api.study.riot_api.data.model.MySharedPreferences
 import com.api.study.riot_api.data.model.dto.MatchInformationDto
-import com.api.study.riot_api.data.model.dto.MatchesId
-import com.api.study.riot_api.data.network.retrofit.client.ClientRetrofit
 import com.api.study.riot_api.databinding.FragmentLolMainBinding
+import com.api.study.riot_api.ui.activity.MainActivity
 import com.api.study.riot_api.ui.adapter.LolMatchListAdapter
 import com.api.study.riot_api.viewModel.fragment.main.LolMainViewModel
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 
 class LolMainFragment : Fragment() {
@@ -59,16 +55,20 @@ class LolMainFragment : Fragment() {
 
         viewModel.lolUserInformation.observe(viewLifecycleOwner, Observer {
             viewModel.getMatchId(0, it.lolUserPuuId)
+            MySharedPreferences(MainActivity.instance).puuid = it.lolUserPuuId
+
         })
 
         viewModel.lolMatchsId.observe(viewLifecycleOwner, Observer {
             for(matchId in it){
-                viewModel.getMatchInformation(matchId)
+                val puuid = MySharedPreferences(MainActivity.instance).puuid
+                viewModel.getMatchInformation(matchId,puuid?:"")
             }
         })
 
         viewModel.lolMatchInformation.observe(viewLifecycleOwner, Observer {
             matchInformationData.add(it)
+            Log.d("상태",it.toString())
             adapter.notifyDataSetChanged()
         })
 
