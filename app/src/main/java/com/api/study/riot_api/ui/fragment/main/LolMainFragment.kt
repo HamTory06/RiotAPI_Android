@@ -68,11 +68,9 @@ class LolMainFragment : Fragment() {
 
         viewModel.lolMatchInformation.observe(viewLifecycleOwner, Observer {
             matchInformationData.add(it)
-            Log.d("상태",it.toString())
+            adapter = LolMatchListAdapter(matchInformationData)
             adapter.notifyDataSetChanged()
         })
-
-
 
         return binding.root
     }
@@ -81,10 +79,6 @@ class LolMainFragment : Fragment() {
         val action = LolMainFragmentDirections.actionLolMainFragmentToMainScreenFragment()
         findNavController().navigate(action)
     }
-
-
-
-
 
 
     private fun toastMessage(message: String) {

@@ -8,6 +8,7 @@ import com.api.study.riot_api.data.model.dto.signupDto.request.SignupRequestDto
 import com.api.study.riot_api.data.model.dto.UpdateUserDto
 import com.api.study.riot_api.data.model.dto.loginDto.Request.LoginRequestDto
 import com.api.study.riot_api.data.model.dto.loginDto.Response.LoginResponseDto
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.DELETE
@@ -66,4 +67,10 @@ interface API {
     fun findUser(
         @Path("username") username: String
     ): Call<LolUserDto>
+
+    @GET("/api/riotAPI/lol/file/image/{type}/{imageFileName}")
+    fun imageDownload(
+        @Path("type") type: String,
+        @Path("imageFileName") imageFileName: String
+    ): Call<ResponseBody>
 }

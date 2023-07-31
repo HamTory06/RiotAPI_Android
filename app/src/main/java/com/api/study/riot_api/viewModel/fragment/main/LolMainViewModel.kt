@@ -1,5 +1,7 @@
 package com.api.study.riot_api.viewModel.fragment.main
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.util.Log
 import androidx.databinding.Bindable
 import androidx.lifecycle.LiveData
@@ -31,6 +33,9 @@ class LolMainViewModel : ViewModel() {
 
     private val _lolMatchsId = MutableLiveData<MatchesId>()
     val lolMatchsId: LiveData<MatchesId> = _lolMatchsId
+
+    private val _championImage = MutableLiveData<Bitmap>()
+    val championImage: LiveData<Bitmap> = _championImage
 
 
     fun onclickBackButton() {
@@ -90,5 +95,39 @@ class LolMainViewModel : ViewModel() {
 
             })
     }
+
+    fun getImage(imageFileName: String, type: String) {
+        ClientRetrofit.api.imageDownload(imageFileName, type)
+            .enqueue(object : Callback<ResponseBody> {
+                override fun onResponse(
+                    call: Call<ResponseBody>,
+                    response: Response<ResponseBody>
+                ) {
+                    if (response.isSuccessful) {
+                        val photoBytes = response.body()?.bytes()
+                        if (photoBytes != null) {
+                            val image = getBitmapFromBytes(photoBytes)
+                            _championImage.value = image
+                        } else {
+                            Log.e("ApiError", "Photo data is null.")
+                        }
+                    } else {
+                        Log.e("ApiError", "Failed to get photo: ${response.code()}")
+                    }
+                }
+
+                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+
+                }
+
+            }
+            )
+    }
+
+
+    fun getBitmapFromBytes(byteArray: ByteArray): Bitmap {
+        return BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
+    }
+
 
 }
