@@ -17,6 +17,6 @@ class LolMatchListAdapter(private val matchList: List<MatchInformationDto>): Rec
     override fun getItemCount(): Int = matchList.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.binding
+        holder.binding.level.text = matchList[position].championLevel.toString()
     }
 }

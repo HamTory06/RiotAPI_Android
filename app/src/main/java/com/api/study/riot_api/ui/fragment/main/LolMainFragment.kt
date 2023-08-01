@@ -56,7 +56,6 @@ class LolMainFragment : Fragment() {
         viewModel.lolUserInformation.observe(viewLifecycleOwner, Observer {
             viewModel.getMatchId(0, it.lolUserPuuId)
             MySharedPreferences(MainActivity.instance).puuid = it.lolUserPuuId
-
         })
 
         viewModel.lolMatchsId.observe(viewLifecycleOwner, Observer {
@@ -69,6 +68,7 @@ class LolMainFragment : Fragment() {
         viewModel.lolMatchInformation.observe(viewLifecycleOwner, Observer {
             matchInformationData.add(it)
             adapter = LolMatchListAdapter(matchInformationData)
+            binding.matchListRecyclerview.adapter = adapter
             adapter.notifyDataSetChanged()
         })
 

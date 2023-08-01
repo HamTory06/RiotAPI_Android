@@ -3,7 +3,6 @@ package com.api.study.riot_api.viewModel.fragment.main
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.util.Log
-import androidx.databinding.Bindable
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -11,10 +10,7 @@ import com.api.study.riot_api.data.model.dto.LolUserDto
 import com.api.study.riot_api.data.model.dto.MatchInformationDto
 import com.api.study.riot_api.data.model.dto.MatchesId
 import com.api.study.riot_api.data.network.retrofit.client.ClientRetrofit
-import androidx.databinding.PropertyChangeRegistry
-import androidx.databinding.Observable
-import androidx.databinding.ObservableField
-import com.api.study.riot_api.data.model.dto.ErrorResponseDto
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
