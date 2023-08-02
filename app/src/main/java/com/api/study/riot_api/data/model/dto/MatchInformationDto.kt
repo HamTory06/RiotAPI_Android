@@ -14,6 +14,7 @@ data class MatchInformationDto(
     val dataVersion: String,
     val championLevel: Int,
     val championId: Int,
+    val championName: String,
     val item0: Int,
     val item1: Int,
     val item2: Int,

@@ -1,10 +1,20 @@
 package com.api.study.riot_api.ui.adapter
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.api.study.riot_api.data.model.dto.MatchInformationDto
+import com.api.study.riot_api.data.network.retrofit.client.ClientRetrofit
 import com.api.study.riot_api.databinding.ItemRecyclerviewLolBinding
+import com.api.study.riot_api.ui.activity.MainActivity
+import com.bumptech.glide.Glide
+import okhttp3.ResponseBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class LolMatchListAdapter(private val matchList: List<MatchInformationDto>): RecyclerView.Adapter<LolMatchListAdapter.ViewHolder>() {
     inner class ViewHolder(val binding: ItemRecyclerviewLolBinding): RecyclerView.ViewHolder(binding.root)
@@ -18,5 +28,42 @@ class LolMatchListAdapter(private val matchList: List<MatchInformationDto>): Rec
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.binding.level.text = matchList[position].championLevel.toString()
+        getImage(matchList[position].championName, "champion", holder)
+    }
+
+
+    private fun getImage(imageFileName: String, type: String, holder: ViewHolder) {
+        ClientRetrofit.api.imageDownload(type,imageFileName)
+            .enqueue(object : Callback<ResponseBody> {
+                override fun onResponse(
+                    call: Call<ResponseBody>,
+                    response: Response<ResponseBody>
+                ) {
+                    if (response.isSuccessful) {
+                        val photoBytes = response.body()?.bytes()
+                        if (photoBytes != null) {
+                            val image = getBitmapFromBytes(photoBytes)
+                            Glide.with(MainActivity.instance)
+                                .load(image)
+                                .into(holder.binding.ChampionProfileIcon)
+                        } else {
+                            Log.e("ApiError", "Photo data is null.")
+                        }
+                    } else {
+                        Log.e("ApiError", "Failed to get photo: ${response.code()}")
+                    }
+                }
+
+                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+
+                }
+
+            }
+            )
+    }
+
+
+    fun getBitmapFromBytes(byteArray: ByteArray): Bitmap {
+        return BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
     }
 }
