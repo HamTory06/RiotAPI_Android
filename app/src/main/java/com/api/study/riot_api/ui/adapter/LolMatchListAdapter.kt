@@ -5,6 +5,7 @@ import android.graphics.BitmapFactory
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.api.study.riot_api.data.model.dto.MatchInformationDto
 import com.api.study.riot_api.data.network.retrofit.client.ClientRetrofit
@@ -28,11 +29,16 @@ class LolMatchListAdapter(private val matchList: List<MatchInformationDto>): Rec
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.binding.level.text = matchList[position].championLevel.toString()
-        getImage(matchList[position].championName, "champion", holder)
+        getImage(matchList[position].championName, "champion", holder.binding.ChampionProfileIcon)
+        holder.binding.K.text = matchList[position].championKill.toString()
+        holder.binding.D.text = matchList[position].championDeath.toString()
+        holder.binding.A.text = matchList[position].championAssist.toString()
+//        getImage(matchList[position].summoner1Id.toString(), "spell", holder.binding.ChampionSpellId1)
+//        getImage(matchList[position].summoner2Id.toString(), "spell", holder.binding.ChampionSpellId2)
+//        getImage(matchList[position])
     }
 
-
-    private fun getImage(imageFileName: String, type: String, holder: ViewHolder) {
+    private fun getImage(imageFileName: String, type: String, imageView: ImageView) {
         ClientRetrofit.api.imageDownload(type,imageFileName)
             .enqueue(object : Callback<ResponseBody> {
                 override fun onResponse(
@@ -45,7 +51,7 @@ class LolMatchListAdapter(private val matchList: List<MatchInformationDto>): Rec
                             val image = getBitmapFromBytes(photoBytes)
                             Glide.with(MainActivity.instance)
                                 .load(image)
-                                .into(holder.binding.ChampionProfileIcon)
+                                .into(imageView)
                         } else {
                             Log.e("ApiError", "Photo data is null.")
                         }
